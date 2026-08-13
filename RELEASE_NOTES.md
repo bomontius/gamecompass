@@ -1,4 +1,4 @@
-# Game Compass v1.0.0 — Complete feature overview
+# Game Compass v1.0.1 — Complete feature overview
 
 Game Compass is a local-first Windows desktop application for personal game discovery. The release is presented as a complete product overview.
 

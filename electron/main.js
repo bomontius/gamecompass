@@ -61,6 +61,11 @@ function ensureRuntime() {
     } else if (catalogNeedsSeed(path.join(sourceData, "catalog.json"), path.join(targetData, "catalog.json"))) {
       fs.copyFileSync(path.join(sourceData, "catalog.json"), path.join(targetData, "catalog.json"));
     }
+    const sourcePython = path.join(source, "python");
+    const targetPython = path.join(target, "python");
+    if (fs.existsSync(path.join(sourcePython, "python.exe")) && !fs.existsSync(path.join(targetPython, "python.exe"))) {
+      copyDirectory(sourcePython, targetPython);
+    }
   }
   runtimeRoot = target;
   return target;
@@ -88,6 +93,9 @@ function availablePort() {
 }
 
 function pythonCommand() {
+  const bundled = runtimeRoot ? path.join(runtimeRoot, "python", "python.exe") : null;
+  if (bundled && fs.existsSync(bundled)) return bundled;
+
   const local = process.env.LOCALAPPDATA || "";
   const candidates = [
     path.join(local, "Programs", "Python", "Python314", "python.exe"),
@@ -102,15 +110,23 @@ function pythonCommand() {
 function startServer() {
   const python = pythonCommand();
   const serverPath = path.join(runtimeRoot, "server.py");
-  serverProcess = spawn(python, [serverPath, "--root", runtimeRoot, "--port", String(serverPort)], {
+  const child = spawn(python, [serverPath, "--root", runtimeRoot, "--port", String(serverPort)], {
     cwd: runtimeRoot,
     windowsHide: true,
     stdio: "ignore",
   });
+  serverProcess = child;
+  child.once("error", (error) => { child.spawnError = error; });
 }
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 70; attempt += 1) {
+    if (serverProcess?.spawnError) {
+      throw new Error(`Yerel servis başlatılamadı: ${serverProcess.spawnError.message}`);
+    }
+    if (serverProcess && serverProcess.exitCode !== null) {
+      throw new Error(`Yerel servis kapandı (kod ${serverProcess.exitCode}).`);
+    }
     if (await serverHealth(serverPort)) return;
     await new Promise((resolve) => setTimeout(resolve, 200));
   }

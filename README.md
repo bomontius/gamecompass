@@ -1,4 +1,4 @@
-# Game Compass 1.0.0
+# Game Compass 1.0.1
 
 Game Compass (Türkçe adı: Oyun Pusulası), sevdiğin oyun sistemlerini keşfetmek, Steam kütüphaneni incelemek ve kişisel bir oyun listesi oluşturmak için Windows üzerinde yerel çalışan bir masaüstü uygulamasıdır.
 
@@ -31,7 +31,7 @@ Game Compass is a local-first Windows desktop app for discovering game systems y
 
 ### Kurulum
 
-1. [GitHub Releases](https://github.com/bomontius/gamecompass/releases) sayfasından Game-Compass-1.0.0-Setup.exe dosyasını indir.
+1. [GitHub Releases](https://github.com/bomontius/gamecompass/releases) sayfasından Game-Compass-1.0.1-Setup.exe dosyasını indir.
 2. Kurulumda hedef klasörü seç; istersen masaüstü ve Başlat menüsü kısayollarını oluştur.
 3. Uygulamayı aç. Yeni profil oluştur veya ilk ekrandaki “Profili içe aktar” seçeneğiyle JSON yedeğini ya da profil klasörünü seç.
 4. Profil oluşturursan karşılama ekranı, günün önerisi ve rehber otomatik açılır.
@@ -71,7 +71,7 @@ Uygulama verileri Windows’ta Belgeler\Game Compass\runtime\data altında tutul
 
 ### Installation
 
-1. Download Game-Compass-1.0.0-Setup.exe from the [GitHub Releases](https://github.com/bomontius/gamecompass/releases) page.
+1. Download Game-Compass-1.0.1-Setup.exe from the [GitHub Releases](https://github.com/bomontius/gamecompass/releases) page.
 2. Choose the installation folder and optionally create Desktop and Start Menu shortcuts.
 3. Open the app. Create a new profile or choose “Import profile” to select a JSON backup or profile folder.
 4. After profile creation, the welcome screen, game of the day and guided tour open automatically.
@@ -90,7 +90,7 @@ User data is stored at Documents\Game Compass\runtime\data on Windows. Uninstall
 - electron/ — Electron host and Windows NSIS installer configuration.
 - FAQ.md — setup, profile, Steam, backup and privacy questions.
 - CREDITS.md — project acknowledgements.
-- RELEASE_NOTES.md — complete v1.0.0 feature overview.
+- RELEASE_NOTES.md — complete v1.0.1 feature overview.
 
 ## License
 

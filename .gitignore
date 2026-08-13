@@ -1,5 +1,7 @@
 electron/node_modules/
 electron/dist/
+electron/runtime/python/
+electron/build/.cache/
 runtime/__pycache__/
 runtime/scripts/__pycache__/
 electron/runtime/__pycache__/

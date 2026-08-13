@@ -1,13 +1,13 @@
 {
   "name": "oyun-pusulasi-desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Game Compass / Oyun Pusulasi local Steam game discovery desk",
   "main": "main.js",
   "author": "Game Compass",
   "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
-    "dist": "node build/prepare-nsis.js && electron-builder --win nsis --x64"
+    "dist": "node build/prepare-python.js && node build/prepare-nsis.js && electron-builder --win nsis --x64"
   },
   "devDependencies": {
     "electron": "^38.1.0",
