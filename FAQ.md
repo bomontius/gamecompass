@@ -4,7 +4,15 @@
 
 ### Uygulama neden boş açılıyor?
 
-Bu bilinçli bir tasarım kararıdır. Paket kişisel profil, kütüphane ve oynama saati içermez. İlk açılışta **Yeni profil oluştur** penceresi açılır; kendi tercihlerini yazarak başlarsın.
+Bu bilinçli bir tasarım kararıdır. Paket kişisel profil, kütüphane ve oynama saati içermez. İlk açılışta kapatılamayan beş adımlı profil sihirbazı açılır; isim, serbest metin tercihleri, kategori/alt tür seçimleri, tema ve kullanım koşulları tamamlanınca uygulamaya geçilir.
+
+### Uygulama dilini değiştirebilir miyim?
+
+Evet. Üst çubuktaki dil seçicisinden Türkçe veya English seçebilirsin. Dil tercihi yerel olarak saklanır.
+
+### Rehber nasıl çalışır?
+
+Karşılama ekranındaki **Rehberli turu başlat** veya üst çubuktaki **Rehber** düğmesine bas. Her adımda ilgili sekme ya da düğme renkli bir odak çerçevesiyle gösterilir. **Bu adımı atla** yalnızca mevcut adımı geçer; **Rehberi atla** tüm turu kapatır.
 
 ### Steam hesabımı bağlamak zorunda mıyım?
 
@@ -34,7 +42,15 @@ Bu public sürüm temiz bir veri alanı kullanır. Eski veriler silinmez; yeni s
 
 ### Why does the app start empty?
 
-This is intentional. The release contains no personal profile, library, or playtime data. On first launch, the **Create a new profile** dialog opens so you can define your own preferences.
+This is intentional. The release contains no personal profile, library, or playtime data. On first launch, a required five-step profile wizard asks for your name, preferences, category/subgenre choices, appearance, and terms-of-use confirmation before entering the app.
+
+### Can I change the app language?
+
+Yes. Use the language selector in the top bar to switch between Türkçe and English. The choice is stored locally.
+
+### How does the guide work?
+
+Choose **Start guided tour** on the welcome screen or use the **Guide** button in the top bar. Each step places a colored focus frame around the relevant tab or control. **Skip this step** advances one step; **Skip tutorial** closes the entire tour.
 
 ### Do I have to connect Steam?
 

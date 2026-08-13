@@ -54,6 +54,8 @@
             <select id="profileSelect" aria-label="Aktif profil"></select>
             <button class="icon-button" id="newProfileButton" type="button" title="Yeni profil oluştur">＋</button>
           </div>
+          <div class="language-switcher"><span class="profile-switcher-label">DİL</span><select id="languageSelect" aria-label="Dil seçimi"><option value="tr">TR</option><option value="en">EN</option></select></div>
+          <button class="guide-button" id="guideButton" type="button">✦ Rehber</button>
           <div class="sync-pill"><span class="status-dot"></span><span id="topbarSync">Son güncelleme bekleniyor</span></div>
           <button class="update-button" id="updateButton"><span class="update-icon">↻</span><span>Şimdi güncelle</span></button>
         </div>
@@ -79,6 +81,8 @@
           <div class="signal-label signal-left">gerçekçi<br>taktik</div>
         </div>
       </section>
+
+      <section class="welcome-view hidden" id="welcomeView" aria-live="polite"></section>
 
       <section class="metrics-row" id="metricsRow">
         <div class="metric-card"><span class="metric-label">KÜTÜPHANE</span><strong id="metricLibrary">—</strong><span class="metric-foot">oyun aktarılmış</span></div>
@@ -199,6 +203,18 @@
   </dialog>
 
   <div class="toast" id="toast" role="status"></div>
+  <div class="guide-overlay" id="guideOverlay" aria-hidden="true">
+    <div class="guide-backdrop"></div>
+    <div class="guide-focus" id="guideFocus" aria-hidden="true"></div>
+    <aside class="guide-popover" id="guidePopover" role="dialog" aria-modal="true">
+      <div class="guide-progress" id="guideProgress"></div>
+      <div class="guide-eyebrow" id="guideEyebrow"></div>
+      <h2 id="guideTitle"></h2>
+      <p id="guideBody"></p>
+      <div class="guide-actions"><button class="text-button" id="guideSkipStep" type="button">Bu adımı atla</button><button class="text-button danger-text" id="guideSkip" type="button">Rehberi atla</button><button class="update-button" id="guideNext" type="button">İleri</button></div>
+    </aside>
+  </div>
   <script src="/app.js"></script>
+  <script src="/release-v020.js"></script>
 </body>
 </html>

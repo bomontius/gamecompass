@@ -44,7 +44,7 @@ function ensureRuntime() {
   if (!fs.existsSync(path.join(target, "server.py"))) {
     copyDirectory(source, target);
   } else {
-    for (const file of ["index.html", "styles.css", "app.js", "server.py", "sw.js"]) {
+    for (const file of ["index.html", "styles.css", "app.js", "server.py", "sw.js", "release-v020.js"]) {
       fs.copyFileSync(path.join(source, file), path.join(target, file));
     }
     if (fs.existsSync(path.join(source, "assets"))) copyDirectory(path.join(source, "assets"), path.join(target, "assets"));
@@ -156,7 +156,7 @@ async function createWindow() {
     minHeight: 680,
     backgroundColor: "#091110",
     autoHideMenuBar: true,
-    title: "Oyun Pusulası",
+    title: "Game Compass",
     icon: path.join(__dirname, "assets", "oyun-pusulasi-icon.ico"),
     webPreferences: { contextIsolation: true, nodeIntegration: false, sandbox: true },
   });
@@ -174,7 +174,7 @@ app.whenReady().then(async () => {
     }
     await createWindow();
   } catch (error) {
-    dialog.showErrorBox("Oyun Pusulası", error.message);
+    dialog.showErrorBox("Game Compass", error.message);
     app.quit();
   }
 });

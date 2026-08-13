@@ -2,7 +2,7 @@
 
 ## Türkçe
 
-Oyun Pusulası / GameCompass, kişisel oyun keşfini yerel ve açıklanabilir tutmak amacıyla hazırlanmıştır.
+Oyun Pusulası / Game Compass, kişisel oyun keşfini yerel ve açıklanabilir tutmak amacıyla hazırlanmıştır.
 
 - Ürün fikri, kategori modeli ve profil yaklaşımı: Bomontius.
 - Uygulama arayüzü ve yerel veri akışı: Oyun Pusulası projesi.
@@ -15,7 +15,7 @@ Steam ve Steam logosu Valve Corporation'ın ticari markalarıdır. Bu proje Valv
 
 ## English
 
-Oyun Pusulası / GameCompass is built to make personal game discovery local, transparent, and preference-driven.
+Oyun Pusulası / Game Compass is built to make personal game discovery local, transparent, and preference-driven.
 
 - Product concept, category model, and profile approach: Bomontius.
 - Application UI and local data flow: the Oyun Pusulası project.

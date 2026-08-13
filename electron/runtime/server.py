@@ -16,11 +16,15 @@ from scripts.updater import clean_library, fetch_details, fetch_owned_games, rea
 DEFAULT_SETTINGS = {
     "theme": "neon",
     "font": "arcade",
+    "language": "tr",
     "weeklyUpdatesEnabled": True,
+    "welcomeSeen": False,
+    "guideCompleted": False,
 }
 
 ALLOWED_THEMES = {"neon", "field", "synth", "ember", "arctic", "acid"}
 ALLOWED_FONTS = {"arcade", "command", "editorial", "terminal", "catalog", "poster"}
+ALLOWED_LANGUAGES = {"tr", "en"}
 
 DEFAULT_PROFILE_STATE = {
     "favorites": [],
@@ -31,6 +35,9 @@ DEFAULT_PROFILE_STATE = {
     "notes": {},
     "extraPreferences": [],
     "positiveTags": [],
+    "preferredCategories": [],
+    "preferredSubgenres": [],
+    "acceptedTermsAt": None,
     "plan": {},
     "shelves": [],
     "followedUpcoming": [],
@@ -51,14 +58,17 @@ def settings_payload(value: dict | None = None) -> dict:
     return {
         "theme": raw["theme"] if raw.get("theme") in ALLOWED_THEMES else DEFAULT_SETTINGS["theme"],
         "font": raw["font"] if raw.get("font") in ALLOWED_FONTS else DEFAULT_SETTINGS["font"],
+        "language": raw["language"] if raw.get("language") in ALLOWED_LANGUAGES else DEFAULT_SETTINGS["language"],
         "weeklyUpdatesEnabled": bool(raw.get("weeklyUpdatesEnabled", True)),
+        "welcomeSeen": bool(raw.get("welcomeSeen", False)),
+        "guideCompleted": bool(raw.get("guideCompleted", False)),
     }
 
 
 def merge_state(value: dict | None, profile_kind: str = "custom") -> dict:
     state = {**DEFAULT_PROFILE_STATE, **(value or {})}
     state["profileKind"] = profile_kind
-    for key in ("favorites", "hiddenGames", "blockedTypes", "likedGames", "dislikedGames", "positiveTags", "followedUpcoming"):
+    for key in ("favorites", "hiddenGames", "blockedTypes", "likedGames", "dislikedGames", "positiveTags", "preferredCategories", "preferredSubgenres", "followedUpcoming"):
         if not isinstance(state.get(key), list):
             state[key] = []
     for key in ("notes", "plan"):
@@ -68,6 +78,8 @@ def merge_state(value: dict | None, profile_kind: str = "custom") -> dict:
         state["extraPreferences"] = []
     if not isinstance(state.get("shelves"), list):
         state["shelves"] = []
+    if not isinstance(state.get("acceptedTermsAt"), str):
+        state["acceptedTermsAt"] = None
     return state
 
 
@@ -156,6 +168,7 @@ def profile_summaries(root: Path, payload: dict) -> list[dict]:
         "id": profile["id"],
         "name": profile.get("name", "Adsız profil"),
         "description": profile.get("description", ""),
+        "steamProfileName": profile.get("steamProfileName", ""),
         "kind": profile.get("kind", "custom"),
         "libraryCount": len(profile_library(root, profile)),
     } for profile in payload["profiles"]]
@@ -200,6 +213,7 @@ class AppHandler(BaseHTTPRequestHandler):
                 "id": profile["id"],
                 "name": profile.get("name", "Adsız profil"),
                 "description": profile.get("description", ""),
+                "steamProfileName": profile.get("steamProfileName", ""),
                 "kind": profile.get("kind", "custom"),
             },
             "settings": settings,
@@ -246,16 +260,32 @@ class AppHandler(BaseHTTPRequestHandler):
         if path == "/api/profile/create":
             profiles = load_profiles(self.root)
             name = str(payload.get("name", "Yeni profil")).strip() or "Yeni profil"
+            if not bool(payload.get("termsAccepted", False)):
+                self.send_json({"ok": False, "error": "Kullanım koşullarını kabul etmeden profil oluşturulamaz."}, 400)
+                return
             profile_id = f"profile-{int(dt.datetime.now().timestamp() * 1000)}"
+            preferred_categories = [str(item).strip() for item in payload.get("preferredCategories", []) if str(item).strip()][:40]
+            preferred_subgenres = [str(item).strip() for item in payload.get("preferredSubgenres", []) if str(item).strip()][:80]
+            positive_tags = list(dict.fromkeys([
+                *[str(item).strip() for item in payload.get("positiveTags", []) if str(item).strip()],
+                *preferred_categories,
+                *preferred_subgenres,
+            ]))[:120]
             state = merge_state({
-                "positiveTags": payload.get("positiveTags", []),
+                "positiveTags": positive_tags,
                 "blockedTypes": payload.get("blockedTypes", []),
                 "extraPreferences": payload.get("extraPreferences", []),
+                "preferredCategories": preferred_categories,
+                "preferredSubgenres": preferred_subgenres,
+                "acceptedTermsAt": now_iso(),
             }, "custom")
             profiles["profiles"].append({
                 "id": profile_id,
                 "name": name,
                 "description": str(payload.get("description", "Sıfırdan oluşturulan profil.")),
+                "steamProfileName": str(payload.get("steamProfileName", "")).strip(),
+                "theme": str(payload.get("theme", "neon")),
+                "font": str(payload.get("font", "arcade")),
                 "kind": "custom",
                 "libraryMode": "empty",
                 "libraryAdditions": [],
@@ -288,6 +318,8 @@ class AppHandler(BaseHTTPRequestHandler):
                 profile["libraryAdditions"] = []
             else:
                 current["positiveTags"] = CURATED_TAGS.copy() if profile.get("kind") == "curated" else []
+                current["preferredCategories"] = []
+                current["preferredSubgenres"] = []
                 current["blockedTypes"] = []
                 current["hiddenGames"] = []
                 current["likedGames"] = []

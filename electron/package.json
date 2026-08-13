@@ -1,9 +1,9 @@
 {
   "name": "oyun-pusulasi-desktop",
-  "version": "0.1.0",
-  "description": "Kisisel Steam oyun kesif masasi",
+  "version": "0.2.0",
+  "description": "Game Compass / Oyun Pusulasi local Steam game discovery desk",
   "main": "main.js",
-  "author": "Oyun Pusulasi",
+  "author": "Game Compass",
   "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
@@ -15,8 +15,8 @@
   },
   "build": {
     "appId": "local.oyunpusulasi.desktop",
-    "productName": "Oyun Pusulasi",
-    "artifactName": "Oyun-Pusulasi-${version}-portable.${ext}",
+    "productName": "Game Compass",
+    "artifactName": "Game-Compass-${version}-portable.${ext}",
     "asar": true,
     "directories": {
       "output": "dist"

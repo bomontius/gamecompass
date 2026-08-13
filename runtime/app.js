@@ -30,7 +30,7 @@ const app = {
   library: [],
   catalog: { games: [], upcoming: [], lastUpdatedAt: null, lastUpdateErrors: [] },
   state: defaultState(),
-  settings: { theme: "neon", font: "arcade", weeklyUpdatesEnabled: true },
+  settings: { theme: "neon", font: "arcade", language: "tr", weeklyUpdatesEnabled: true, welcomeSeen: false, guideCompleted: false },
   profiles: [],
   activeProfileId: null,
   activeProfile: { id: null, name: "Yeni profil oluştur", description: "Henüz bir profil oluşturulmadı.", kind: "custom" },
@@ -239,7 +239,7 @@ function profileFit(game) {
   if (isBlocked(game)) return -100;
   if (game.owned) return 0;
   const extraPositive = (app.state.extraPreferences || []).filter((item) => item.direction === "more").flatMap((item) => item.tags || []);
-  const desired = [...(app.state.positiveTags || []), ...extraPositive].filter(Boolean);
+  const desired = [...(app.state.positiveTags || []), ...(app.state.preferredCategories || []), ...(app.state.preferredSubgenres || []), ...extraPositive].filter(Boolean);
   if (app.activeProfile.kind === "custom") {
     if (!desired.length) return 0;
     return desired.reduce((score, term) => score + (includesTerm(game, term) ? 2 : 0), 0);
