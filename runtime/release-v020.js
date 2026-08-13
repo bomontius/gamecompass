@@ -14,7 +14,7 @@
       footer: "Oyun Pusulası · yerel keşif masası", footerSteam: "Steam aktarımı isteğe bağlı · API anahtarı kaydedilmez", compareTable: " karşılaştırma masasında", clear: "Temizle", close: "Kapat",
       wizardEyebrow: "YENİ PROFİL", wizardTitle: "Kendi oyun pusulanı kur.", wizardIntro: "Birkaç kısa adımda tercihlerini seç. Kütüphane ve oynama saatleri bu profil için zorunlu değildir.", step1: "Kimlik", step2: "Tercihler", step3: "Kategoriler", step4: "Görünüm", step5: "Onay", next: "İleri", back: "Geri", cancel: "Vazgeç", create: "Profili oluştur", requiredName: "Profil adı", steamName: "Steam profil adı (isteğe bağlı)", description: "Kısa açıklama (isteğe bağlı)", namePlaceholder: "Örn. Hafta sonu stratejileri", steamPlaceholder: "Örn. oyuncu_adın veya profil URL’in", descriptionPlaceholder: "Bu profilde ne arıyorsun?",
       preferenceTitle: "Oyun zevkini tarif et.", preferenceBody: "Serbestçe yazabilir veya aşağıdaki seçimleri kullanabilirsin. Beğenmediğin oyun tiplerini ayrıca belirt.", liked: "Daha çok görmek istediklerim", disliked: "Önermeni istemediklerim", likedPlaceholder: "Örn. RimWorld benzeri koloni, tarihi şehir kurma ve lojistik", dislikedPlaceholder: "Örn. büyülü rekabetçi shooter, gacha", categoriesTitle: "Ana kategoriler", typesTitle: "Alt türler ve oyun sistemleri", chooseHint: "Birden fazla seçim yapabilirsin.", viewAllTypes: "Katalogdaki tüm seçimler", appearanceTitle: "Pusulanın görünümü", themeTitle: "Tema", fontTitle: "Yazı tipi", languageTitle: "Uygulama dili", weeklyTitle: "Haftalık tarama etkin", weeklyBody: "Cuma 13:00–20:00 aralığındaki görev çalışsın.", termsTitle: "Son bir kontrol.", termsBody: "Game Compass yerel çalışan bir keşif aracıdır. Öneriler kişisel tercihlere göre üretilir; sonuçlar garanti edilmez. Steam aktarımı isteğe bağlıdır ve API anahtarı kaydedilmez.", termsAccept: "Kullanım koşullarını ve yerel veri açıklamasını okudum, kabul ediyorum.", mustName: "Devam etmek için profil adına bir isim ver.", mustTerms: "Profili oluşturmak için kullanım koşullarını kabul etmelisin.",
-      guide: "REHBER", guideNext: "İleri", guideFinish: "Tamamla", guideSkipStep: "Bu adımı atla", guideSkip: "Rehberi atla", guideStep: "Adım {current} / {total}", guideDone: "Rehber tamamlandı.", guideNoProfile: "Rehberi başlatmak için önce profilini oluştur.", guideTitle1: "Pusulanın merkezi", guideBody1: "Bu başlık hangi keşif görünümünde olduğunu gösterir. Sol menüden öneriler, yeni gelenler, yaklaşan oyunlar ve kütüphanen arasında gezebilirsin.", guideTitle2: "Profil geçişi", guideBody2: "Birden fazla profil oluşturduğunda buradan aktif profili değiştirirsin. Her profilin tercihleri ve kütüphanesi ayrıdır.", guideTitle3: "Hızlı arama", guideBody3: "Oyun adı, ana kategori veya alt tür yazarak görünür sonuçları daraltabilirsin.", guideTitle4: "Çoklu filtre", guideBody4: "Birden fazla ana kategori ve alt türü aynı anda seçerek daha spesifik bir keşif listesi oluşturabilirsin.", guideTitle5: "Kategorili listeler", guideBody5: "Oyunlar temel kategoriler altında açılır-kapanır gruplar halinde görünür. Kartı açıp künyeyi ve Steam medyasını inceleyebilirsin.", guideTitle6: "Manuel güncelleme", guideBody6: "Katalogu istediğin zaman yenileyebilirsin. Haftalık tarama açıksa cuma 13:00–20:00 arasında da çalışır.", guideTitle7: "Dil seçimi", guideBody7: "Uygulamanın dilini istediğin zaman Türkçe ve İngilizce arasında değiştirebilirsin.", guideTitle8: "Rehber düğmesi", guideBody8: "Bu turu daha sonra yeniden başlatmak için rehber düğmesini kullan.",
+      guide: "REHBER", guideNext: "İleri", guideFinish: "Tamamla", guideSkipStep: "Bu adımı atla", guideSkip: "Rehberi atla", guideStep: "Adım {current} / {total}", guideDone: "Rehber tamamlandı.", guideNoProfile: "Rehberi başlatmak için önce profilini oluştur.", guideTitle1: "Pusulanın merkezi", guideBody1: "Bu başlık hangi keşif görünümünde olduğunu gösterir. Sol menüden öneriler, yeni gelenler, yaklaşan oyunlar ve kütüphanen arasında gezebilirsin.", guideTitle2: "Profil geçişi", guideBody2: "Birden fazla profil oluşturduğunda buradan aktif profili değiştirirsin. Her profilin tercihleri ve kütüphanesi ayrıdır.", guideTitle3: "Hızlı arama", guideBody3: "Oyun adı, ana kategori veya alt tür yazarak görünür sonuçları daraltabilirsin.", guideTitle4: "Çoklu filtre", guideBody4: "Birden fazla ana kategori ve alt türü aynı anda seçerek daha spesifik bir keşif listesi oluşturabilirsin.", guideTitle5: "Kategorili listeler", guideBody5: "Oyunlar temel kategoriler altında açılır-kapanır gruplar halinde görünür. Kartı açıp künyeyi ve Steam medyasını inceleyebilirsin.", guideTitle6: "Yeni gelenler", guideBody6: "Yeni gelenler, kataloğa son eklenen veya yakın zamanda çıkan ve profilinle eşleşen oyunları gösterir.", guideTitle7: "Yakında çıkacaklar", guideBody7: "Henüz çıkmamış, profilinle eşleşen oyunları burada takip edebilirsin. Takip et düğmesiyle çıkışlarını izlersin.", guideTitle8: "Kayıtlılarım", guideBody8: "Bir oyun kartında Kaydet düğmesine bastığında oyun burada görünür. Notlarını ve planını da bu ekrandan açabilirsin.", guideTitle9: "Kişisel raflar", guideBody9: "Raflar; koloni, şehir kurma, strateji veya yönetim gibi ortak sistemlere göre otomatik oluşur. Aynı oyun birden fazla rafı görebilir.", guideTitle10: "Profil ve temalar", guideBody10: "Profil tercihlerini, tema, font ve okuma boyutunu buradan değiştirir; yeni profil veya yedek işlemlerini yönetirsin.", guideTitle11: "Güncelleme durumu", guideBody11: "Son katalog taramasını, yaklaşan kayıt sayısını ve haftalık görevi burada görürsün.", guideTitle12: "Manuel güncelleme", guideBody12: "Katalogu istediğin zaman yenileyebilirsin. Haftalık tarama açıksa cuma 13:00–20:00 arasında da çalışır.", guideTitle13: "Dil seçimi", guideBody13: "Uygulamanın dilini istediğin zaman Türkçe ve İngilizce arasında değiştirebilirsin.", guideTitle14: "Rehber düğmesi", guideBody14: "Bu turu daha sonra yeniden başlatmak için rehber düğmesini kullan.",
       viewHome: "Sana göre", viewNew: "Yeni gelenler", viewUpcoming: "Yakında çıkacaklar", viewLow: "Alt liste", viewFavorites: "Kayıtlılarım", viewLibrary: "Kütüphanem", viewShelves: "Kişisel raflar", viewExcluded: "Dışlananlar", viewProfile: "Profil ve temalar", viewUpdates: "Güncelleme durumu", viewHomeSub: "Uzun soluklu sistemler, gerçek dünya ve sana göre oyunlar.", viewNewSub: "Yeni çıkanlar ve bu listeye yeni düşen keşifler.", viewUpcomingSub: "Profilinle eşleşen, henüz çıkmamış oyunları takip et.", viewLowSub: "Türe yakın; ama sende daha düşük uyum ihtimali taşıyanlar.", viewFavoritesSub: "Daha sonra dönmek için ayırdığın oyunlar ve notlar.", viewLibrarySub: "Bu profilin oyunları; oynama saatleri öneri kararına dönüşmez.", viewShelvesSub: "Benzer oyunları ortak sistemlerine göre otomatik raflara ayırdım.", viewExcludedSub: "Gizlediğin oyunlar ve profilinden çıkardığın oyun tipleri.", viewProfileSub: "Profilini değiştir, tema seç, yeni pusula oluştur veya sıfırla.", viewUpdatesSub: "Haftalık keşif taraması ve son yenilenen bilgiler.",
     },
     en: {
@@ -29,7 +29,7 @@
       footer: "Game Compass · local discovery desk", footerSteam: "Steam import is optional · API keys are not saved", compareTable: " in the comparison tray", clear: "Clear", close: "Close",
       wizardEyebrow: "NEW PROFILE", wizardTitle: "Build your own game compass.", wizardIntro: "Choose your preferences in a few short steps. A library and playtime are not required for this profile.", step1: "Identity", step2: "Preferences", step3: "Categories", step4: "Appearance", step5: "Confirm", next: "Next", back: "Back", cancel: "Cancel", create: "Create profile", requiredName: "Profile name", steamName: "Steam profile name (optional)", description: "Short description (optional)", namePlaceholder: "e.g. Weekend strategies", steamPlaceholder: "e.g. your_name or profile URL", descriptionPlaceholder: "What are you looking for in this profile?",
       preferenceTitle: "Describe your game taste.", preferenceBody: "Write freely or use the choices below. You can also call out game types you do not enjoy.", liked: "Show me more of", disliked: "Do not recommend", likedPlaceholder: "e.g. RimWorld-like colonies, historical city builders and logistics", dislikedPlaceholder: "e.g. magical competitive shooters, gacha", categoriesTitle: "Main categories", typesTitle: "Subgenres and systems", chooseHint: "You can select more than one.", viewAllTypes: "All choices from the catalog", appearanceTitle: "Make the compass yours", themeTitle: "Theme", fontTitle: "Font", languageTitle: "App language", weeklyTitle: "Enable weekly scan", weeklyBody: "Run the task on Fridays between 13:00 and 20:00.", termsTitle: "One last check.", termsBody: "Game Compass is a local discovery tool. Recommendations are generated from your preferences and are not guarantees. Steam import is optional and API keys are not saved.", termsAccept: "I have read and accept the terms of use and local data notice.", mustName: "Give your profile a name to continue.", mustTerms: "You must accept the terms of use to create the profile.",
-      guide: "GUIDE", guideNext: "Next", guideFinish: "Finish", guideSkipStep: "Skip this step", guideSkip: "Skip tutorial", guideStep: "Step {current} / {total}", guideDone: "Guide completed.", guideNoProfile: "Create a profile before starting the guide.", guideTitle1: "Your compass center", guideBody1: "This heading tells you which discovery view is open. Use the left menu to move between recommendations, new arrivals, upcoming games and your library.", guideTitle2: "Profile switching", guideBody2: "When you create multiple profiles, switch the active one here. Each profile keeps its own preferences and library.", guideTitle3: "Quick search", guideBody3: "Type a game name, main category or subgenre to narrow the visible results.", guideTitle4: "Multi-filter", guideBody4: "Select several categories and subgenres at once to make discovery more specific.", guideTitle5: "Categorized lists", guideBody5: "Games appear in collapsible groups under their main categories. Open a card to inspect its dossier and Steam media.", guideTitle6: "Manual update", guideBody6: "Refresh the catalog whenever you want. If weekly scanning is enabled, it also runs Friday between 13:00 and 20:00.", guideTitle7: "Language", guideBody7: "Switch the app between Turkish and English whenever you like.", guideTitle8: "Guide button", guideBody8: "Use the guide button to start this tour again later.",
+      guide: "GUIDE", guideNext: "Next", guideFinish: "Finish", guideSkipStep: "Skip this step", guideSkip: "Skip tutorial", guideStep: "Step {current} / {total}", guideDone: "Guide completed.", guideNoProfile: "Create a profile before starting the guide.", guideTitle1: "Your compass center", guideBody1: "This heading tells you which discovery view is open. Use the left menu to move between recommendations, new arrivals, upcoming games and your library.", guideTitle2: "Profile switching", guideBody2: "When you create multiple profiles, switch the active one here. Each profile keeps its own preferences and library.", guideTitle3: "Quick search", guideBody3: "Type a game name, main category or subgenre to narrow the visible results.", guideTitle4: "Multi-filter", guideBody4: "Select several categories and subgenres at once to make discovery more specific.", guideTitle5: "Categorized lists", guideBody5: "Games appear in collapsible groups under their main categories. Open a card to inspect its dossier and Steam media.", guideTitle6: "New arrivals", guideBody6: "New arrivals shows games recently added to the catalog or released recently that match your profile.", guideTitle7: "Upcoming releases", guideBody7: "Follow unreleased games that match your profile here. Use Follow to keep an eye on their release.", guideTitle8: "Saved", guideBody8: "Press Save on a game card and it appears here. You can also open its notes and plan from this view.", guideTitle9: "Personal shelves", guideBody9: "Shelves are created automatically around shared systems such as colony, city building, strategy or management. A game may appear on more than one shelf.", guideTitle10: "Profile & themes", guideBody10: "Change profile preferences, theme, font and reading size here; manage new profiles and backups too.", guideTitle11: "Update status", guideBody11: "See the latest catalog scan, upcoming count and weekly task here.", guideTitle12: "Manual update", guideBody12: "Refresh the catalog whenever you want. If weekly scanning is enabled, it also runs Friday between 13:00 and 20:00.", guideTitle13: "Language", guideBody13: "Switch the app between Turkish and English whenever you like.", guideTitle14: "Guide button", guideBody14: "Use the guide button to start this tour again later.",
       viewHome: "For you", viewNew: "New arrivals", viewUpcoming: "Upcoming releases", viewLow: "Lower lane", viewFavorites: "Saved", viewLibrary: "My library", viewShelves: "Personal shelves", viewExcluded: "Excluded", viewProfile: "Profile & themes", viewUpdates: "Update status", viewHomeSub: "Long-form systems, the real world and games shaped around your taste.", viewNewSub: "Fresh releases and discoveries newly added to this list.", viewUpcomingSub: "Unreleased games that match your profile and are worth following.", viewLowSub: "Close to the genre, but with a lower likelihood of fitting you.", viewFavoritesSub: "Games and notes you set aside for later.", viewLibrarySub: "This profile’s games; playtime does not become a recommendation signal.", viewShelvesSub: "Automatic shelves grouped by the systems your games share.", viewExcludedSub: "Games you hid and game types you removed from your profile.", viewProfileSub: "Change your profile, choose a theme, create a compass or reset it.", viewUpdatesSub: "Weekly discovery scans and the latest catalog activity.",
     },
   };
@@ -51,6 +51,80 @@
     "Kullanım koşullarını kabul etmeden profil oluşturulamaz.": "You must accept the terms of use before creating a profile.", "Profil bulunamadı.": "Profile not found.", "Vazgeç": "Cancel", "Kapat": "Close", "Temizle": "Clear",
   };
 
+  messages.tr.fontSizeTitle = "Yaz\u0131 boyutu";
+  messages.tr.fontSmall = "K\u00fc\u00e7\u00fck";
+  messages.tr.fontNormal = "Normal";
+  messages.tr.fontLarge = "B\u00fcy\u00fck";
+  messages.en.fontSizeTitle = "Font size";
+  messages.en.fontSmall = "Small";
+  messages.en.fontNormal = "Normal";
+  messages.en.fontLarge = "Large";
+
+  Object.assign(phraseTranslations, {
+    "KİŞİSEL RAF": "PERSONAL SHELF",
+    "RimWorld’e yakın koloni sistemleri": "RimWorld-like colony systems",
+    "Tarihsel devlet ve şehir": "Historical states and cities",
+    "Üretim, lojistik ve tycoon": "Production, logistics and tycoons",
+    "Gerçekçi operasyonlar": "Realistic operations",
+    "Bu raf için henüz eşleşen bir oyun yok.": "No matching game has been found for this shelf yet.",
+    "Ana kategorileri birlikte seç": "Select main categories together",
+    "Alt türleri birlikte seç": "Select subgenres together",
+    "Steam hesabı bağlantısı kullanılmaz.": "Steam account linking is not used.",
+    "Katalog, Steam’in herkese açık mağaza künyeleri ve aktif yerel profil üzerinden yenilenir.": "The catalog refreshes from Steam's public store dossiers and the active local profile.",
+    "New on list etiketi yalnızca ilk haftalık taramada yeni bulunan oyunlara verilir.": "The New on list tag is only assigned to games newly found in the first weekly scan.",
+    "Oynama saatleri takip edilmez.": "Playtime is not tracked.",
+    "Profil senin kararlarınla şekillenir.": "Your profile follows your decisions.",
+    "İlk güncelleme bekleniyor": "Waiting for first update",
+    "profil": "profile",
+    "uyumu": "fit",
+    "koloni / üs": "colony / base",
+    "tarihsel": "historical",
+    "strateji": "strategy",
+    "yönetim / tycoon": "management / tycoon",
+    "gerçekçi": "realistic",
+    "taktik": "tactical",
+    "Katalog türleri ve sistem etiketleriyle eşleşen bir keşif.": "A discovery matched to the catalog genres and systems you enjoy.",
+    "Oyun türleri ve sistem etiketleriyle eşleşen bir keşif adayı.": "A discovery candidate matched to the game systems and genres you enjoy.",
+    "Yaklaşan çıkışlar arasında profilinle eşleşebilecek bir keşif.": "An upcoming discovery that may match your profile.",
+    "Profilinle eşleşen bir oyun.": "A game matched to your profile.",
+    "Bu oyun aktif profilinin kütüphanesine eklendi.": "This game was added to the active profile library.",
+    "Steam mağaza özeti henüz alınmadı.": "The Steam store summary has not been loaded yet.",
+    "Beğendim": "I like this",
+    "Beğenmedim": "I do not like this",
+    "Bu oyunu önerme": "Do not recommend this game",
+    "Bu oyun tipini önerme": "Do not recommend this game type",
+    "Rafa ekle": "Add to shelf",
+    "Takipten çıkar": "Stop following",
+    "Çıkışı takip et": "Follow release",
+    "Kayıtlılara eklendi.": "Added to saved.",
+    "Kayıtlılardan çıkarıldı.": "Removed from saved.",
+    "Tercihin kaydedildi; listeler hemen yenilendi.": "Your preference was saved; lists updated immediately.",
+    "Beğenmeme kararın kaydedildi; listeler hemen yenilendi.": "Your dislike decision was saved; lists updated immediately.",
+    "Bu oyun ana listeden gizlendi.": "This game was hidden from the main list.",
+    "Karşılaştırma masası en fazla 4 oyun alır.": "The comparison tray holds up to 4 games.",
+    "Karşılaştırma masasına eklendi.": "Added to the comparison tray.",
+    "Karşılaştırma masasından çıkarıldı.": "Removed from the comparison tray.",
+    "Çıkış takibe alındı.": "Release added to your follows.",
+    "Çıkış takibinden çıkarıldı.": "Release removed from your follows.",
+    "Oyun kişisel rafa eklendi.": "Game added to the personal shelf.",
+    "Önce bir tercih yaz.": "Write a preference first.",
+    "Profile bir ad ver.": "Give the profile a name.",
+    "Profil ayarları sıfırlandı.": "Profile settings were reset.",
+    "Not kaydedildi.": "Note saved.",
+    "Haftalık tarama açıldı.": "Weekly scan enabled.",
+    "Haftalık tarama kapatıldı.": "Weekly scan disabled.",
+    "Steam hesabından oyunları çek": "Pull games from Steam",
+    "Kişisel not": "Personal note",
+    "Plan:": "Plan:",
+    "Bekleniyor": "Pending",
+    "Dışarıda": "Outside profile",
+    "Ölçüt": "Metric",
+    "Ana kategori": "Main category",
+    "Alt tür": "Subgenre",
+    "Profil uyumu": "Profile fit",
+    "Oyun planı": "Game plan",
+  });
+
   const original = {
     renderAll: typeof renderAll === "function" ? renderAll : null,
     setView: typeof setView === "function" ? setView : null,
@@ -61,9 +135,23 @@
     formatDate: typeof formatDate === "function" ? formatDate : null,
   };
   const wizard = { step: 1, required: false, draft: null };
-  const guide = { active: false, index: 0 };
+  window.__gcWizard = wizard;
+  const guide = { active: false, index: 0, rendering: false };
   const guideSteps = [
-    ["#viewTitle", "guideTitle1", "guideBody1"], ["#profileSelect", "guideTitle2", "guideBody2"], ["#searchInput", "guideTitle3", "guideBody3"], ["#categoryFilterButton", "guideTitle4", "guideBody4"], ["#gameGrid", "guideTitle5", "guideBody5"], ["#updateButton", "guideTitle6", "guideBody6"], ["#languageSelect", "guideTitle7", "guideBody7"], ["#guideButton", "guideTitle8", "guideBody8"],
+    { selector: "#viewTitle", view: "home", title: "guideTitle1", body: "guideBody1" },
+    { selector: "#profileSelect", view: "home", title: "guideTitle2", body: "guideBody2" },
+    { selector: "#searchInput", view: "home", title: "guideTitle3", body: "guideBody3" },
+    { selector: "#categoryFilterButton", view: "home", title: "guideTitle4", body: "guideBody4" },
+    { selector: "#gameGrid", view: "home", title: "guideTitle5", body: "guideBody5" },
+    { selector: '[data-view="new"]', view: "new", title: "guideTitle6", body: "guideBody6" },
+    { selector: '[data-view="upcoming"]', view: "upcoming", title: "guideTitle7", body: "guideBody7" },
+    { selector: '[data-view="favorites"]', view: "favorites", title: "guideTitle8", body: "guideBody8" },
+    { selector: '[data-view="shelves"]', view: "shelves", title: "guideTitle9", body: "guideBody9" },
+    { selector: '[data-view="profile"]', view: "profile", title: "guideTitle10", body: "guideBody10" },
+    { selector: '[data-view="updates"]', view: "updates", title: "guideTitle11", body: "guideBody11" },
+    { selector: "#updateButton", view: "updates", title: "guideTitle12", body: "guideBody12" },
+    { selector: "#languageSelect", view: "updates", title: "guideTitle13", body: "guideBody13" },
+    { selector: "#guideButton", view: "home", title: "guideTitle14", body: "guideBody14" },
   ];
 
   function lang() { return app.settings?.language === "en" ? "en" : "tr"; }
@@ -87,15 +175,34 @@
       [/^(\d+) oyun$/, "$1 games"], [/^(\d+) oyun · (\d+) raf$/, "$1 games · $2 shelves"], [/^(\d+) oyun · (\d+) değerlendirme$/, "$1 games · $2 reviews"],
       [/^(\d+) değerlendirme$/, "$1 reviews"], [/^(\d+) saat$/, "$1 hours"], [/^(\d+) dk$/, "$1 min"], [/^(\d+)% olumlu · (\d+) oy$/, "$1% positive · $2 reviews"], [/^(\d+)% olumlu · (\d+) değerlendirme$/, "$1% positive · $2 reviews"], [/^Son: (.+)$/, "Last: $1"], [/^(\d+) sinyal$/, "$1 signals"], [/^(\d+) \/ 4$/, "$1 / 4"],
     ];
-    for (const [pattern, replacement] of patterns) if (pattern.test(trimmed)) return preserveWhitespace(value, trimmed.replace(pattern, replacement));
+    const extraPatterns = [[/^(\d+) kategori seçili$/, "$1 categories selected"], [/^(\d+) alt tür seçili$/, "$1 subgenres selected"]];
+    for (const [pattern, replacement] of [...patterns, ...extraPatterns]) if (pattern.test(trimmed)) return preserveWhitespace(value, trimmed.replace(pattern, replacement));
+    const partialTranslations = [
+      ["Steam hesabı bağlantısı kullanılmaz.", "Steam account linking is not used."],
+      ["Katalog, Steam’in herkese açık mağaza künyeleri ve aktif yerel profil üzerinden yenilenir.", "The catalog refreshes from Steam's public store dossiers and the active local profile."],
+      ["“New on list” etiketi yalnızca ilk haftalık taramada yeni bulunan oyunlara verilir.", "The New on list tag is only assigned to games newly found in the first weekly scan."],
+    ];
+    for (const [from, replacement] of partialTranslations) if (trimmed.includes(from)) return preserveWhitespace(value, trimmed.replaceAll(from, replacement));
     return value;
   }
+  let translating = false;
   function translateDom(root = document.body) {
-    if (lang() !== "en") return;
+    if (lang() !== "en" || translating) return;
+    translating = true;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach((node) => { node.nodeValue = translateText(node.nodeValue); });
+    nodes.forEach((node) => { const translated = translateText(node.nodeValue); if (translated !== node.nodeValue) node.nodeValue = translated; });
+    translating = false;
+  }
+
+  let translationObserver;
+  function observeTranslations() {
+    if (translationObserver || typeof MutationObserver === "undefined") return;
+    translationObserver = new MutationObserver(() => {
+      if (lang() === "en") translateDom(document.body);
+    });
+    ["gameGrid", "profileView", "updatesView", "drawerContent", "compareTray", "libraryTools", "categoryFilterMenu", "subgenreFilterMenu"].map((id) => document.getElementById(id)).filter(Boolean).forEach((root) => translationObserver.observe(root, { subtree: true, childList: true, characterData: true }));
   }
 
   function applyLanguage() {
@@ -105,7 +212,7 @@
     setText(".brand-name", "appName"); setText(".brand-caption", "appCaption"); setText(".sidebar-label", "discover"); setText(".sidebar-label-spaced", "settings");
     const navKeys = { home: "navHome", new: "navNew", upcoming: "navUpcoming", low: "navLow", favorites: "navFavorites", library: "navLibrary", shelves: "navShelves", excluded: "navExcluded", profile: "navProfile", updates: "navUpdates" };
     document.querySelectorAll(".nav-item").forEach((item) => { const span = item.querySelectorAll("span")[1]; if (span && navKeys[item.dataset.view]) span.textContent = t(navKeys[item.dataset.view]); });
-    setText(".profile-switcher-label", "profile"); setText(".language-switcher .profile-switcher-label", "language"); setText("#guideButton", "guide");
+    setText(".profile-switcher-label", "profile"); setText(".language-switcher .profile-switcher-label", "language"); setText("#guideButton", "guide"); setText("#guideSkipStep", "guideSkipStep"); setText("#guideSkip", "guideSkip"); setText("#guideNext", guide.index === guideSteps.length - 1 ? "guideFinish" : "guideNext");
     const updateLabel = document.querySelector("#updateButton span:last-child"); if (updateLabel) updateLabel.textContent = t("updateNow");
     const heroKicker = document.querySelector("#homeHero .hero-kicker"); const heroTitle = document.querySelector("#homeHero h2"); const heroBody = document.querySelector("#homeHero p");
     if (heroKicker) heroKicker.textContent = hasActiveProfile() ? t("heroKicker") : t("welcomeKicker");
@@ -122,9 +229,12 @@
     const notice = document.querySelector("#noticeStrip > span:nth-child(2)"); if (notice) notice.textContent = t("notice"); const dismiss = document.querySelector("#dismissNotice"); if (dismiss) dismiss.setAttribute("aria-label", t("closeInfo"));
     setText("#gridKicker", "strongMatches"); setText("#emptyState h3", "emptyTitle"); setText("#emptyState p", "emptyBody");
     const footer = document.querySelectorAll(".app-footer span"); if (footer[0]) footer[0].textContent = t("footer"); if (footer[1]) footer[1].textContent = t("footerSteam");
-    const language = document.querySelector("#languageSelect"); if (language) language.value = lang();
-    translateDom(document.querySelector(".app-shell"));
-    if (guide.active) renderGuide();
+    const language = document.querySelector("#languageSelect"); if (language) { language.value = lang(); language.setAttribute("aria-label", lang() === "en" ? "Language selection" : "Dil seçimi"); }
+    const navs = document.querySelectorAll(".main-nav"); if (navs[0]) navs[0].setAttribute("aria-label", lang() === "en" ? "Main navigation" : "Ana gezinme"); if (navs[1]) navs[1].setAttribute("aria-label", lang() === "en" ? "Settings" : "Ayarlar");
+    const sortLabel = document.querySelector("#sortSelect"); if (sortLabel) sortLabel.setAttribute("aria-label", lang() === "en" ? "Sort order" : "Sıralama");
+    const heroSignal = document.querySelector(".hero-signal"); if (heroSignal) heroSignal.setAttribute("aria-label", lang() === "en" ? "Profile summary" : "Profil özeti");
+    translateDom(document.body);
+    if (guide.active && !guide.rendering) renderGuide();
     if (document.querySelector("#profileDialog")?.open) renderWizard();
   }
 
@@ -155,7 +265,7 @@
   function draftDefaults(required) {
     return {
       name: "", steamProfileName: "", description: "", preferences: "", blocks: "", categories: [], subgenres: [],
-      theme: app.settings.theme || "neon", font: app.settings.font || "arcade", language: lang(), weeklyUpdatesEnabled: app.settings.weeklyUpdatesEnabled !== false, termsAccepted: false, required,
+      theme: app.settings.theme || "neon", font: app.settings.font || "arcade", fontSize: app.settings.fontSize || "normal", language: lang(), weeklyUpdatesEnabled: app.settings.weeklyUpdatesEnabled !== false, termsAccepted: false, required,
     };
   }
   function readWizardFields() {
@@ -163,10 +273,11 @@
     Object.entries(fields).forEach(([key, selector]) => { const input = document.querySelector(selector); if (input) wizard.draft[key] = input.value; });
     const categoryInputs = [...document.querySelectorAll("[data-gc-category]")]; if (categoryInputs.length) wizard.draft.categories = categoryInputs.filter((input) => input.checked).map((input) => input.dataset.gcCategory);
     const subgenreInputs = [...document.querySelectorAll("[data-gc-subgenre]")]; if (subgenreInputs.length) wizard.draft.subgenres = subgenreInputs.filter((input) => input.checked).map((input) => input.dataset.gcSubgenre);
+    const fontSize = document.querySelector("#gcWizardFontSize"); if (fontSize) wizard.draft.fontSize = fontSize.value;
     const terms = document.querySelector("#gcWizardTerms"); if (terms) wizard.draft.termsAccepted = terms.checked;
   }
-  function themeChoice(id) { wizard.draft.theme = id; renderWizard(); }
-  function fontChoice(id) { wizard.draft.font = id; renderWizard(); }
+  function themeChoice(id) { wizard.draft.theme = id; document.documentElement.dataset.theme = id; renderWizard(); }
+  function fontChoice(id) { wizard.draft.font = id; document.documentElement.dataset.font = id; renderWizard(); }
   function renderWizard() {
     const dialog = document.querySelector("#profileDialog"); const form = document.querySelector("#profileForm"); if (!dialog || !form || !wizard.draft) return;
     const categories = getChoices("generalCategories", ["Action", "Strategy", "Simulation", "RPG", "Sports"]); const subgenres = getChoices("subgenres", ["Colony Sim", "Base Building", "City Builder", "Grand Strategy", "Tactical Shooter", "Management Sim", "Tycoon"]);
@@ -178,6 +289,7 @@
     if (wizard.step === 4) body = `<div class="wizard-step-copy"><span class="wizard-icon">◈</span><div><h3>${t("appearanceTitle")}</h3><p>${t("chooseHint")}</p></div></div><div class="wizard-section-label">${t("themeTitle")}</div><div class="wizard-theme-grid">${themeOptions.map(([id, label, description]) => { const localized = localizedTheme(id, label, description); return `<button type="button" class="theme-card ${d.theme === id ? "active" : ""}" data-gc-theme="${id}"><span class="theme-preview ${id}"><i></i><i></i><i></i></span><strong>${escapeHtml(localized[0])}</strong><small>${escapeHtml(localized[1])}</small></button>`; }).join("")}</div><div class="wizard-section-label wizard-subgenre-label">${t("fontTitle")}</div><div class="wizard-font-grid">${fontOptions.map(([id, label, description]) => { const localized = localizedFont(id, label, description); return `<button type="button" class="font-card ${d.font === id ? "active" : ""}" data-gc-font="${id}"><span class="font-preview font-${id}">Aa / 01</span><strong>${escapeHtml(localized[0])}</strong><small>${escapeHtml(localized[1])}</small></button>`; }).join("")}</div><label class="form-label">${t("languageTitle")}</label><select id="gcWizardLanguage"><option value="tr" ${d.language === "tr" ? "selected" : ""}>Türkçe</option><option value="en" ${d.language === "en" ? "selected" : ""}>English</option></select><label class="weekly-toggle"><input id="gcWizardWeekly" type="checkbox" ${d.weeklyUpdatesEnabled ? "checked" : ""}><span><strong>${t("weeklyTitle")}</strong><small>${t("weeklyBody")}</small></span></label>`;
     if (wizard.step === 5) body = `<div class="wizard-step-copy"><span class="wizard-icon">✓</span><div><h3>${t("termsTitle")}</h3><p>${t("termsBody")}</p></div></div><div class="wizard-terms"><p>${t("termsBody")}</p><label class="import-check"><input id="gcWizardTerms" type="checkbox" ${d.termsAccepted ? "checked" : ""}><span>${t("termsAccept")}</span></label></div>`;
     form.innerHTML = `<div class="dialog-eyebrow">${t("wizardEyebrow")}</div><div class="wizard-heading"><div><h2>${t("wizardTitle")}</h2><p>${t("wizardIntro")}</p></div><span class="wizard-step-counter">${wizard.step} / 5</span></div><div class="wizard-step-tabs">${stepLabels.map((label, index) => `<span class="${index + 1 === wizard.step ? "active" : index + 1 < wizard.step ? "done" : ""}"><b>${index + 1}</b>${escapeHtml(label)}</span>`).join("")}</div><div class="wizard-content">${body}</div><div class="dialog-actions wizard-actions"><button class="text-button ${wizard.required ? "hidden" : ""}" type="button" id="gcWizardCancel">${t("cancel")}</button><span class="wizard-spacer"></span><button class="ghost-button ${wizard.step === 1 ? "hidden" : ""}" type="button" id="gcWizardBack">${t("back")}</button><button class="update-button" type="button" id="gcWizardNext">${wizard.step === 5 ? t("create") : t("next")}</button></div>`;
+    window.__gcAfterWizardRender?.();
   }
   function openWizard(required = !hasActiveProfile()) {
     wizard.required = required; wizard.step = 1; wizard.draft = draftDefaults(required); renderWizard();
@@ -197,7 +309,7 @@
     try {
       const response = await fetch("/api/profile/create", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: draft.name.trim(), steamProfileName: draft.steamProfileName.trim(), description: draft.description.trim(), positiveTags, blockedTypes, extraPreferences: draft.preferences.trim() ? [{ text: draft.preferences.trim(), direction: "more", source: "profile wizard", tags: inferTags(draft.preferences) || [] }] : [], preferredCategories: draft.categories, preferredSubgenres: draft.subgenres, theme: draft.theme, font: draft.font, termsAccepted: true }) });
       const payload = await response.json(); if (!response.ok || !payload.ok) throw new Error(payload.error || t("mustTerms"));
-      if (payload.bundle) applyBundle(payload.bundle); app.settings = { ...app.settings, theme: draft.theme, font: draft.font, language: draft.language, weeklyUpdatesEnabled: draft.weeklyUpdatesEnabled, welcomeSeen: false };
+      if (payload.bundle) applyBundle(payload.bundle); app.settings = { ...app.settings, theme: draft.theme, font: draft.font, fontSize: draft.fontSize || "normal", language: draft.language, weeklyUpdatesEnabled: draft.weeklyUpdatesEnabled, welcomeSeen: false };
       await persistSettings(); const dialog = document.querySelector("#profileDialog"); if (dialog?.open) dialog.close();
       if (firstProfile) { setView("welcome"); app.settings.welcomeSeen = false; renderWelcome(); } else setView("profile");
       toast(lang() === "en" ? `${draft.name.trim()} is ready. Your library starts empty.` : `${draft.name.trim()} profili hazır. Kütüphane boş başladı.`);
@@ -220,15 +332,20 @@
   function enhancedSetView(view) { if (view === "welcome") { setWelcomeView(); return; } document.getElementById("welcomeView")?.classList.add("hidden"); if (original.setView) original.setView(view); applyLanguage(); }
   function enhancedRenderAll(...args) { if (original.renderAll) original.renderAll(...args); if (app.view === "welcome") setWelcomeView(); else applyLanguage(); }
 
-  function guideTargets() { return guideSteps.map(([selector, title, body]) => ({ selector, title, body })).filter((step) => document.querySelector(step.selector)); }
+  function guideTargets() { return guideSteps.filter((step) => document.querySelector(step.selector)); }
   function renderGuide() {
     const overlay = document.querySelector("#guideOverlay"); const focus = document.querySelector("#guideFocus"); const popover = document.querySelector("#guidePopover"); if (!overlay || !guide.active) return;
     const steps = guideTargets(); if (!steps.length) return;
-    const step = steps[Math.min(guide.index, steps.length - 1)]; const target = document.querySelector(step.selector); if (!target) return;
+    const step = steps[Math.min(guide.index, steps.length - 1)];
+    guide.rendering = true;
+    if (step.view && app.view !== step.view && typeof setView === "function") setView(step.view);
+    const target = document.querySelector(step.selector); if (!target) { guide.rendering = false; return; }
+    target.scrollIntoView({ block: "center", inline: "nearest" });
     const rect = target.getBoundingClientRect(); const pad = 8; focus.style.left = `${Math.max(8, rect.left - pad)}px`; focus.style.top = `${Math.max(8, rect.top - pad)}px`; focus.style.width = `${rect.width + pad * 2}px`; focus.style.height = `${rect.height + pad * 2}px`;
     document.querySelector("#guideProgress").textContent = t("guideStep", { current: guide.index + 1, total: steps.length }); document.querySelector("#guideEyebrow").textContent = t("guide"); document.querySelector("#guideTitle").textContent = t(step.title); document.querySelector("#guideBody").textContent = t(step.body);
     const next = document.querySelector("#guideNext"); if (next) next.textContent = guide.index === steps.length - 1 ? t("guideFinish") : t("guideNext");
     const popWidth = Math.min(390, window.innerWidth - 32); let left = rect.left; if (left + popWidth > window.innerWidth - 16) left = window.innerWidth - popWidth - 16; if (left < 16) left = 16; let top = rect.bottom + 18; if (top + popover.offsetHeight > window.innerHeight - 16) top = Math.max(16, rect.top - popover.offsetHeight - 18); popover.style.left = `${left}px`; popover.style.top = `${top}px`; overlay.setAttribute("aria-hidden", "false"); overlay.classList.add("open");
+    guide.rendering = false;
   }
   function endGuide(completed = true) { guide.active = false; document.querySelector("#guideOverlay")?.classList.remove("open"); document.querySelector("#guideOverlay")?.setAttribute("aria-hidden", "true"); if (completed) { app.settings.guideCompleted = true; persistSettings(); toast(t("guideDone")); } }
   function startGuide() { if (!hasActiveProfile()) { toast(t("guideNoProfile"), true); return; } setView("home"); guide.active = true; guide.index = 0; requestAnimationFrame(renderGuide); }
@@ -257,7 +374,7 @@
       const welcomeOpen = event.target.closest("[data-gc-welcome-open]"); if (welcomeOpen) { event.preventDefault(); event.stopImmediatePropagation(); openDrawer(welcomeOpen.dataset.gcWelcomeOpen); return; }
     }, true);
     document.addEventListener("change", (event) => {
-      if (event.target?.id === "languageSelect") { app.settings.language = event.target.value === "en" ? "en" : "tr"; persistSettings(); applyLanguage(); if (wizard.draft) { wizard.draft.language = app.settings.language; renderWizard(); } return; }
+      if (event.target?.id === "languageSelect") { app.settings.language = event.target.value === "en" ? "en" : "tr"; void persistSettings().finally(() => window.location.reload()); return; }
       if (event.target?.id === "gcWizardLanguage") { readWizardFields(); wizard.draft.language = event.target.value; app.settings.language = wizard.draft.language; applyLanguage(); renderWizard(); return; }
       if (event.target?.id === "gcWizardWeekly") { wizard.draft.weeklyUpdatesEnabled = event.target.checked; return; }
     }, true);
@@ -274,9 +391,10 @@
     if (original.formatDate) formatDate = localizedDate;
   }
   function init() {
-    app.settings = { language: "tr", welcomeSeen: false, guideCompleted: false, ...app.settings };
+    app.settings = { language: "tr", fontSize: "normal", welcomeSeen: false, guideCompleted: false, ...app.settings };
     viewMeta.welcome = ["", "Hoş geldin", "İlk keşfin seni bekliyor."];
-    prepareWizard(); installOverrides(); installHandlers(); applyLanguage();
+    window.__gcLocaleRefresh = () => { if (lang() === "en") translateDom(document.body); };
+    prepareWizard(); installOverrides(); installHandlers(); applyLanguage(); observeTranslations();
     if (document.querySelector("#profileDialog")?.open && !wizard.draft) openWizard(!hasActiveProfile());
     if (app.view === "welcome") setWelcomeView();
   }

@@ -15,7 +15,9 @@ from scripts.updater import clean_library, fetch_details, fetch_owned_games, rea
 
 DEFAULT_SETTINGS = {
     "theme": "neon",
+    "background": "tactical",
     "font": "arcade",
+    "fontSize": "normal",
     "language": "tr",
     "weeklyUpdatesEnabled": True,
     "welcomeSeen": False,
@@ -23,8 +25,10 @@ DEFAULT_SETTINGS = {
 }
 
 ALLOWED_THEMES = {"neon", "field", "synth", "ember", "arctic", "acid"}
+ALLOWED_BACKGROUNDS = {"tactical", "neon", "management"}
 ALLOWED_FONTS = {"arcade", "command", "editorial", "terminal", "catalog", "poster"}
 ALLOWED_LANGUAGES = {"tr", "en"}
+ALLOWED_FONT_SIZES = {"small", "normal", "large"}
 
 DEFAULT_PROFILE_STATE = {
     "favorites": [],
@@ -57,7 +61,9 @@ def settings_payload(value: dict | None = None) -> dict:
     raw = {**DEFAULT_SETTINGS, **(value or {})}
     return {
         "theme": raw["theme"] if raw.get("theme") in ALLOWED_THEMES else DEFAULT_SETTINGS["theme"],
+        "background": raw["background"] if raw.get("background") in ALLOWED_BACKGROUNDS else DEFAULT_SETTINGS["background"],
         "font": raw["font"] if raw.get("font") in ALLOWED_FONTS else DEFAULT_SETTINGS["font"],
+        "fontSize": raw["fontSize"] if raw.get("fontSize") in ALLOWED_FONT_SIZES else DEFAULT_SETTINGS["fontSize"],
         "language": raw["language"] if raw.get("language") in ALLOWED_LANGUAGES else DEFAULT_SETTINGS["language"],
         "weeklyUpdatesEnabled": bool(raw.get("weeklyUpdatesEnabled", True)),
         "welcomeSeen": bool(raw.get("welcomeSeen", False)),
@@ -228,6 +234,18 @@ class AppHandler(BaseHTTPRequestHandler):
         if path == "/api/bootstrap":
             self.send_json(self.response_bundle())
             return
+        if path == "/api/backup":
+            profiles = load_profiles(self.root)
+            settings = settings_payload(read_json(self.root / "data" / "settings.json", {}))
+            self.send_json({
+                "format": "game-compass-profile-backup",
+                "version": 1,
+                "exportedAt": now_iso(),
+                "activeProfileId": profiles.get("activeProfileId"),
+                "profiles": profiles.get("profiles", []),
+                "settings": settings,
+            })
+            return
         self.serve_static(path)
 
     def do_POST(self) -> None:
@@ -236,8 +254,9 @@ class AppHandler(BaseHTTPRequestHandler):
         if path == "/api/open-url":
             url = str(payload.get("url", "")).strip()
             parsed = urlparse(url)
-            if parsed.scheme != "https" or parsed.netloc not in {"store.steampowered.com", "steamcommunity.com"}:
-                self.send_json({"ok": False, "error": "Yalnızca Steam bağlantıları açılabilir."}, 400)
+            allowed_hosts = {"store.steampowered.com", "steamcommunity.com", "github.com", "www.github.com"}
+            if parsed.scheme != "https" or parsed.netloc not in allowed_hosts:
+                self.send_json({"ok": False, "error": "Yalnızca Steam veya Game Compass GitHub bağlantıları açılabilir."}, 400)
                 return
             if os.name == "nt":
                 os.startfile(url)
@@ -256,6 +275,40 @@ class AppHandler(BaseHTTPRequestHandler):
             settings = settings_payload({**read_json(self.root / "data" / "settings.json", {}), **payload})
             write_json(self.root / "data" / "settings.json", settings)
             self.send_json({"ok": True, "settings": settings})
+            return
+        if path == "/api/backup/import":
+            backup = payload.get("backup", payload)
+            if not isinstance(backup, dict) or not isinstance(backup.get("profiles"), list) or not backup.get("profiles"):
+                self.send_json({"ok": False, "error": "Geçerli bir Game Compass profil yedeği bulunamadı."}, 400)
+                return
+            if len(backup["profiles"]) > 50:
+                self.send_json({"ok": False, "error": "Yedek en fazla 50 profil içerebilir."}, 400)
+                return
+            imported_profiles = []
+            for index, source in enumerate(backup["profiles"]):
+                if not isinstance(source, dict):
+                    continue
+                profile = dict(source)
+                profile["id"] = str(profile.get("id") or f"profile-imported-{index}-{int(dt.datetime.now().timestamp() * 1000)}")
+                profile["name"] = str(profile.get("name") or "İçe aktarılan profil").strip()[:120]
+                profile["description"] = str(profile.get("description") or "").strip()[:500]
+                profile.pop("steamApiKey", None)
+                profile.pop("apiKey", None)
+                profile["state"] = merge_state(profile.get("state"), profile.get("kind", "custom"))
+                profile["libraryMode"] = profile.get("libraryMode") if profile.get("libraryMode") in {"empty", "steam", "file", "seed"} else "empty"
+                additions = profile.get("libraryAdditions", [])
+                profile["libraryAdditions"] = normalize_imported_library(additions if isinstance(additions, list) else [])
+                imported_profiles.append(profile)
+            if not imported_profiles:
+                self.send_json({"ok": False, "error": "Yedekte içe aktarılabilir profil bulunamadı."}, 400)
+                return
+            active_id = str(backup.get("activeProfileId") or "")
+            if active_id not in {profile["id"] for profile in imported_profiles}:
+                active_id = imported_profiles[0]["id"]
+            save_profiles(self.root, {"activeProfileId": active_id, "profiles": imported_profiles})
+            if isinstance(backup.get("settings"), dict):
+                write_json(self.root / "data" / "settings.json", settings_payload(backup["settings"]))
+            self.send_json({"ok": True, "bundle": self.response_bundle()})
             return
         if path == "/api/profile/create":
             profiles = load_profiles(self.root)
@@ -425,7 +478,7 @@ class AppHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         cache_control = "no-cache"
-        if candidate.suffix in (".js", ".css", ".svg", ".ico"):
+        if candidate.suffix in (".js", ".css", ".svg", ".ico", ".png", ".jpg", ".jpeg", ".webp"):
             cache_control = "public, max-age=86400"
         self.send_header("Cache-Control", cache_control)
         self.send_header("Content-Length", str(len(content)))

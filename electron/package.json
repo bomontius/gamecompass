@@ -1,13 +1,13 @@
 {
   "name": "oyun-pusulasi-desktop",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Game Compass / Oyun Pusulasi local Steam game discovery desk",
   "main": "main.js",
   "author": "Game Compass",
   "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win portable --x64"
+    "dist": "electron-builder --win nsis --x64"
   },
   "devDependencies": {
     "electron": "^38.1.0",
@@ -16,7 +16,7 @@
   "build": {
     "appId": "local.oyunpusulasi.desktop",
     "productName": "Game Compass",
-    "artifactName": "Game-Compass-${version}-portable.${ext}",
+    "artifactName": "Game-Compass-${version}-Setup.${ext}",
     "asar": true,
     "directories": {
       "output": "dist"
@@ -35,10 +35,16 @@
     ],
     "win": {
       "icon": "assets/oyun-pusulasi-icon.ico",
-      "target": [
-        "portable"
-      ],
+      "target": ["nsis"],
       "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Game Compass",
+      "uninstallDisplayName": "Game Compass"
     }
   },
   "allowScripts": {

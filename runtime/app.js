@@ -14,7 +14,7 @@ const viewMeta = {
   low: ["", "Alt liste", "Türe yakın; ama sende daha düşük uyum ihtimali taşıyanlar."],
   favorites: ["", "Kayıtlılarım", "Daha sonra dönmek için ayırdığın oyunlar ve notlar."],
   library: ["", "Kütüphanem", "Bu profilin oyunları; oynama saatleri öneri kararına dönüşmez."],
-  shelves: ["KEŞİF RAFI / 01", "Kişisel raflar", "Benzer oyunları ortak sistemlerine göre otomatik raflara ayırdım."],
+  shelves: ["", "Kişisel raflar", "Benzer oyunları ortak sistemlerine göre otomatik raflara ayırdım."],
   excluded: ["", "Dışlananlar", "Gizlediğin oyunlar ve profilinden çıkardığın oyun tipleri."],
   profile: ["", "Profil ve temalar", "Profilini değiştir, tema seç, yeni pusula oluştur veya sıfırla."],
   updates: ["", "Güncelleme durumu", "Haftalık keşif taraması ve son yenilenen bilgiler."],
@@ -30,7 +30,7 @@ const app = {
   library: [],
   catalog: { games: [], upcoming: [], lastUpdatedAt: null, lastUpdateErrors: [] },
   state: defaultState(),
-  settings: { theme: "neon", font: "arcade", language: "tr", weeklyUpdatesEnabled: true, welcomeSeen: false, guideCompleted: false },
+  settings: { theme: "neon", background: "tactical", font: "arcade", fontSize: "normal", language: "tr", weeklyUpdatesEnabled: true, welcomeSeen: false, guideCompleted: false },
   profiles: [],
   activeProfileId: null,
   activeProfile: { id: null, name: "Yeni profil oluştur", description: "Henüz bir profil oluşturulmadı.", kind: "custom" },
@@ -56,11 +56,38 @@ const app = {
   },
 };
 
+function notifyLocaleRender() {
+  if (typeof window !== "undefined" && typeof window.__gcLocaleRefresh === "function") window.__gcLocaleRefresh();
+}
+
+function uiText(turkish, english) {
+  return app.settings.language === "en" ? english : turkish;
+}
+
+function localizedReason(value) {
+  const reason = value || "";
+  if (app.settings.language !== "en") return reason;
+  const normalizedReason = reason.toLocaleLowerCase("tr-TR");
+  if (normalizedReason.includes("katalog türleri") || normalizedReason.includes("oyun türleri")) return "A discovery matched to the catalog genres and systems you enjoy.";
+  if (normalizedReason.includes("yaklaşan çıkışlar")) return "An upcoming discovery that may match your profile.";
+  const known = {
+    "Oyun türleri ve sistem etiketleriyle eşleşen bir keşif adayı.": "A discovery candidate matched to the game systems and genres you enjoy.",
+    "Katalog türleri ve sistem etiketleriyle eşleşen bir keşif.": "A discovery matched to the catalog genres and systems you enjoy.",
+    "Yaklaşan çıkışlar arasında profilinle eşleşebilecek bir keşif.": "An upcoming discovery that may match your profile.",
+    "Profilinle eşleşen bir oyun.": "A game matched to your profile.",
+    "Bu oyun aktif profilinin kütüphanesine eklendi.": "This game was added to the active profile library.",
+    "Steam mağaza özeti henüz alınmadı.": "The Steam store summary has not been loaded yet.",
+    "Profil sinyallerinle eşleşen keşif.": "A discovery matched to your profile signals.",
+  };
+  return known[reason] || reason;
+}
+
 function hasActiveProfile() {
   return Boolean(app.activeProfile?.id && app.profiles.length);
 }
 
 const planLabels = { now: "Şimdi", later: "Sonra", tracking: "Takipte", deferred: "Ertelendi" };
+const planLabelsEn = { now: "Now", later: "Later", tracking: "Following", deferred: "Deferred" };
 const planOrder = ["now", "later", "tracking", "deferred"];
 const themeOptions = [
   ["neon", "Neon Pulse", "Siyan, pembe, lime"],
@@ -250,18 +277,18 @@ function profileFit(game) {
 }
 
 function laneLabel(game) {
-  if (game.isUpcoming) return ["YAKINDA", "blue"];
+  if (game.isUpcoming) return [uiText("YAKINDA", "UPCOMING"), "blue"];
   if (game.newOnList) return ["NEW ON LIST", "pink"];
-  if (game.isNewRelease) return ["YENİ", "orange"];
-  if (game.profileLane === "excluded") return ["DIŞLANMIŞ", "orange"];
-  if (game.owned) return ["KÜTÜPHANENDE", "blue"];
-  if (game.profileLane === "maybe") return ["ALT LİSTE", "orange"];
-  return ["GÜÇLÜ EŞLEŞME", ""];
+  if (game.isNewRelease) return [uiText("YENİ", "NEW"), "orange"];
+  if (game.profileLane === "excluded") return [uiText("DIŞLANMIŞ", "EXCLUDED"), "orange"];
+  if (game.owned) return [uiText("KÜTÜPHANENDE", "IN YOUR LIBRARY"), "blue"];
+  if (game.profileLane === "maybe") return [uiText("ALT LİSTE", "LOWER LANE"), "orange"];
+  return [uiText("GÜÇLÜ EŞLEŞME", "STRONG MATCH"), ""];
 }
 
 function planLabel(game) {
   const key = app.state.plan?.[game.id];
-  return key ? planLabels[key] : "Planla";
+  return key ? uiText(planLabels[key], planLabelsEn[key]) : uiText("Planla", "Plan");
 }
 
 function releaseValue(game) { return game.releaseDateIso ? new Date(game.releaseDateIso).getTime() : 0; }
@@ -331,15 +358,15 @@ function cardHtml(game) {
   const [badge, badgeClass] = laneLabel(game);
   const image = game.headerImage || game.capsuleImage;
   const fit = profileFit(game);
-  const review = game.reviewPercent == null ? "Steam puanı bekleniyor" : `${game.reviewPercent}% olumlu · ${formatNumber(game.reviewCount)} oy`;
+  const review = game.reviewPercent == null ? uiText("Steam puanı bekleniyor", "Steam rating pending") : `${game.reviewPercent}% ${uiText("olumlu", "positive")} · ${formatNumber(game.reviewCount)} ${uiText("oy", "reviews")}`;
   const tags = [...new Set([...subgenreList(game), ...categoryList(game)])].slice(0, 5);
   const isFavorite = app.state.favorites.includes(game.id);
   const isCompared = app.compareSet.has(game.id);
   const isFollowed = app.state.followedUpcoming.includes(game.id);
   return `<article class="game-card" data-game-id="${escapeHtml(game.id)}">
     <div class="game-cover">${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : `<div class="cover-fallback">${escapeHtml(game.title)}</div>`}<div class="card-badges"><span class="badge ${badgeClass}">${escapeHtml(badge)}</span>${game.owned ? `<span class="badge blue">${escapeHtml(formatHours(game.playtimeHours))}</span>` : ""}</div></div>
-    <div class="card-body"><div class="card-title" title="${escapeHtml(game.title)}">${escapeHtml(game.title)}</div><div class="card-reason">${escapeHtml(game.reason || game.shortDescription || "Profil sinyallerinle eşleşen keşif.")}</div><div class="tag-row">${tags.map((tag) => `<span class="game-tag">${escapeHtml(tag)}</span>`).join("")}</div><div class="card-meta"><span>${escapeHtml(game.releaseDate || "Çıkış tarihi yok")}</span><span class="review-meta">${escapeHtml(review.split(" · ")[0])}</span></div></div>
-    <div class="card-footer"><button class="card-action ${isFavorite ? "active" : ""}" data-action="favorite">${isFavorite ? "★" : "☆"} Kaydet</button><button class="card-action ${isCompared ? "active" : ""}" data-action="compare">${isCompared ? "✓" : "+"} Karşılaştır</button>${game.isUpcoming ? `<button class="card-action ${isFollowed ? "active" : ""}" data-action="follow">${isFollowed ? "Takipte" : "Takip et"}</button>` : `<button class="card-action" data-action="cycle-plan">${escapeHtml(planLabel(game))}</button>`}<button class="card-action primary" data-action="open">Künye ↗</button></div>
+    <div class="card-body"><div class="card-title" title="${escapeHtml(game.title)}">${escapeHtml(game.title)}</div><div class="card-reason">${escapeHtml(localizedReason(game.reason) || game.shortDescription || uiText("Profil sinyallerinle eşleşen keşif.", "A discovery matched to your profile signals."))}</div><div class="tag-row">${tags.map((tag) => `<span class="game-tag">${escapeHtml(tag)}</span>`).join("")}</div><div class="card-meta"><span>${escapeHtml(game.releaseDate || uiText("Çıkış tarihi yok", "No release date"))}</span><span class="review-meta">${escapeHtml(review.split(" · ")[0])}</span></div></div>
+    <div class="card-footer"><button class="card-action ${isFavorite ? "active" : ""}" data-action="favorite">${isFavorite ? "★" : "☆"} ${uiText("Kaydet", "Save")}</button><button class="card-action ${isCompared ? "active" : ""}" data-action="compare">${isCompared ? "✓" : "+"} ${uiText("Karşılaştır", "Compare")}</button>${game.isUpcoming ? `<button class="card-action ${isFollowed ? "active" : ""}" data-action="follow">${isFollowed ? uiText("Takipte", "Following") : uiText("Takip et", "Follow")}</button>` : `<button class="card-action" data-action="cycle-plan">${escapeHtml(planLabel(game))}</button>`}<button class="card-action primary" data-action="open">${uiText("Künye ↗", "Dossier ↗")}</button></div>
   </article>`;
 }
 
@@ -354,10 +381,11 @@ function renderCards() {
   grid.innerHTML = ordered.map(([category, items]) => {
     const key = `${app.view}:${category}`;
     const collapsed = !app.expandedGroups.has(key);
-    return `<section class="category-group ${collapsed ? "collapsed" : ""}" data-category="${escapeHtml(category)}"><button class="category-group-header" aria-expanded="${String(!collapsed)}" data-toggle-category="${escapeHtml(category)}"><span><span class="category-kicker">KATEGORİ</span><strong>${escapeHtml(category)}</strong></span><span class="category-count">${items.length} oyun <b>⌄</b></span></button><div class="category-group-grid">${collapsed ? "" : items.map(cardHtml).join("")}</div></section>`;
+    return `<section class="category-group ${collapsed ? "collapsed" : ""}" data-category="${escapeHtml(category)}"><button class="category-group-header" aria-expanded="${String(!collapsed)}" data-toggle-category="${escapeHtml(category)}"><span><span class="category-kicker">${uiText("KATEGORİ", "CATEGORY")}</span><strong>${escapeHtml(category)}</strong></span><span class="category-count">${items.length} ${uiText("oyun", "games")} <b>⌄</b></span></button><div class="category-group-grid">${collapsed ? "" : items.map(cardHtml).join("")}</div></section>`;
   }).join("");
   empty.classList.toggle("hidden", games.length > 0);
-  document.getElementById("resultCount").textContent = `${formatNumber(games.length)} oyun`;
+  document.getElementById("resultCount").textContent = `${formatNumber(games.length)} ${uiText("oyun", "games")}`;
+  notifyLocaleRender();
 }
 
 function renderShelves() {
@@ -369,20 +397,21 @@ function renderShelves() {
     let games = shelf.custom ? candidates.filter((game) => (shelf.gameIds || []).includes(game.id)) : candidates.filter((game) => shelf.match.some((term) => (game.subgenres || []).includes(term) || (game.generalCategories || []).includes(term)));
     games = dedupeGames(games);
     games.forEach((game) => used.add(game.id));
-    return `<section class="shelf-section"><div class="shelf-heading"><div><span class="category-kicker">KİŞİSEL RAF</span><h3>${escapeHtml(shelf.name)}</h3></div><span>${games.length} oyun</span></div><div class="shelf-grid">${games.length ? games.map(cardHtml).join("") : `<div class="shelf-empty">Bu raf için henüz eşleşen bir oyun yok.</div>`}</div></section>`;
+    return `<section class="shelf-section"><div class="shelf-heading"><div><span class="category-kicker">${uiText("KİŞİSEL RAF", "PERSONAL SHELF")}</span><h3>${escapeHtml(shelf.name)}</h3></div><span>${games.length} ${uiText("oyun", "games")}</span></div><div class="shelf-grid">${games.length ? games.map(cardHtml).join("") : `<div class="shelf-empty">${uiText("Bu raf için henüz eşleşen bir oyun yok.", "No matching game has been found for this shelf yet.")}</div>`}</div></section>`;
   }).join("");
   document.getElementById("gameGrid").innerHTML = html;
   document.getElementById("emptyState").classList.toggle("hidden", candidates.length > 0 || shelves.length > 0);
-  document.getElementById("resultCount").textContent = `${formatNumber(used.size)} oyun · ${shelves.length} raf`;
+  document.getElementById("resultCount").textContent = `${formatNumber(used.size)} ${uiText("oyun", "games")} · ${shelves.length} ${uiText("raf", "shelves")}`;
+  notifyLocaleRender();
 }
 
 function renderFilterMenu(kind, values, selected) {
   const button = document.getElementById(`${kind}FilterButton`);
   const menu = document.getElementById(`${kind}FilterMenu`);
   if (!button || !menu) return;
-  const label = kind === "category" ? "kategori" : "alt tür";
-  button.innerHTML = selected.size ? `${selected.size} ${label} seçili <span>⌄</span>` : `Tüm ${kind === "category" ? "kategoriler" : "alt türler"} <span>⌄</span>`;
-  menu.innerHTML = `<div class="multi-select-head"><span>${kind === "category" ? "Ana kategorileri" : "Alt türleri"} birlikte seç</span><button type="button" data-clear-filter="${kind}">Temizle</button></div>${values.map((value) => `<label class="tag-option"><input type="checkbox" value="${escapeHtml(value)}" ${selected.has(value) ? "checked" : ""}><span>${escapeHtml(value)}</span></label>`).join("")}`;
+  const label = kind === "category" ? uiText("kategori", "categories") : uiText("alt tür", "subgenres");
+  button.innerHTML = selected.size ? `${selected.size} ${label} ${uiText("seçili", "selected")} <span>⌄</span>` : `${uiText("Tüm", "All")} ${kind === "category" ? uiText("kategoriler", "categories") : uiText("alt türler", "subgenres")} <span>⌄</span>`;
+  menu.innerHTML = `<div class="multi-select-head"><span>${kind === "category" ? uiText("Ana kategorileri", "Select main categories") : uiText("Alt türleri", "Select subgenres")} ${uiText("birlikte seç", "together")}</span><button type="button" data-clear-filter="${kind}">${uiText("Temizle", "Clear")}</button></div>${values.map((value) => `<label class="tag-option"><input type="checkbox" value="${escapeHtml(value)}" ${selected.has(value) ? "checked" : ""}><span>${escapeHtml(value)}</span></label>`).join("")}`;
 }
 
 function renderFilters() {
@@ -454,6 +483,7 @@ function renderProfile() {
   if (themeGrid) themeGrid.innerHTML = themeOptions.map(([id, label, description]) => themeCard(id, label, description)).join("");
   const signalsPanel = document.querySelector("#profileView .profile-panel:nth-child(2)");
   if (signalsPanel && !signalsPanel.querySelector(".font-grid")) signalsPanel.insertAdjacentHTML("beforeend", `<div class="section-kicker profile-font-kicker">YAZI TİPİ</div><div class="font-grid">${fontOptions.map(([id, label, description]) => fontCard(id, label, description)).join("")}</div>`);
+  notifyLocaleRender();
 }
 
 function renderUpdates() {
@@ -461,6 +491,7 @@ function renderUpdates() {
   const errors = app.catalog.lastUpdateErrors?.length || 0;
   const upcoming = app.catalog.upcoming?.length || 0;
   document.getElementById("updatesView").innerHTML = `<div class="update-card"><div class="section-kicker">SİSTEM DURUMU</div><h3>Keşif akışı hazır.</h3><p>Uygulama cuma günleri 13:00–20:00 aralığında tarama yapar. Bilgisayar kapalıysa görev bir sonraki uygun açılışta tamamlanır. Manuel güncelleme notlarını, profilleri ve kararlarını silmez.</p><div class="update-detail-list"><div class="update-detail"><span>Son başarılı tarama</span><strong>${escapeHtml(last)}</strong></div><div class="update-detail"><span>Katalogdaki eşleşme</span><strong>${formatNumber(app.catalog.games?.length || 0)} oyun</strong></div><div class="update-detail"><span>Yaklaşan profil eşleşmesi</span><strong>${formatNumber(upcoming)} oyun</strong></div><div class="update-detail"><span>Haftalık arka plan görevi</span><strong class="${app.settings.weeklyUpdatesEnabled ? "update-status-good" : "update-status-warn"}">${app.settings.weeklyUpdatesEnabled ? "Etkin" : "KapalI"}</strong></div><div class="update-detail"><span>Künye alınamayan kayıt</span><strong class="${errors ? "update-status-warn" : "update-status-good"}">${errors || "Yok"}</strong></div></div><button class="update-button" data-trigger-update ${app.updateInProgress ? "disabled" : ""}>${app.updateInProgress ? "Güncelleniyor…" : "Şimdi güncelle"}</button><div class="update-instructions">Steam hesabı bağlantısı kullanılmaz. Katalog, Steam’in herkese açık mağaza künyeleri ve aktif yerel profil üzerinden yenilenir. “New on list” etiketi yalnızca ilk haftalık taramada yeni bulunan oyunlara verilir.</div></div>`;
+  notifyLocaleRender();
 }
 
 function renderLibraryTools() {
@@ -476,7 +507,9 @@ function renderCompareTray() {
 
 function renderAll() {
   document.documentElement.dataset.theme = app.settings.theme || "neon";
+  document.documentElement.dataset.background = app.settings.background || "tactical";
   document.documentElement.dataset.font = app.settings.font || "arcade";
+  document.documentElement.dataset.fontSize = app.settings.fontSize || "normal";
   const freshStart = !hasActiveProfile();
   document.querySelector("#homeHero .hero-kicker").textContent = freshStart ? "HOŞ GELDİN" : "BU HAFTANIN KISA NOTU";
   document.querySelector("#homeHero h2").innerHTML = freshStart ? "Kendi pusulanı<br><em>kur.</em>" : "Sistem kurmayı<br><em>seviyorsun.</em>";
@@ -911,7 +944,9 @@ function applyBundle(bundle) {
   resetDerivedCache();
   app.expandedGroups.clear();
   document.documentElement.dataset.theme = app.settings.theme || "neon";
+  document.documentElement.dataset.background = app.settings.background || "tactical";
   document.documentElement.dataset.font = app.settings.font || "arcade";
+  document.documentElement.dataset.fontSize = app.settings.fontSize || "normal";
   renderAll();
   if (!hasActiveProfile()) window.setTimeout(() => {
     const dialog = document.getElementById("profileDialog");

@@ -17,17 +17,23 @@ Game Compass is a local-first game discovery desk for exploring genres, systems,
 - Steam puanı, oy sayısı, çıkış tarihi, kısa özet ve Steam sayfası bağlantısı.
 - Yakında çıkacaklar, yeni gelenler, kişisel raflar, kaydetme, karşılaştırma ve planlama.
 - İsteğe bağlı Steam Web API veya JSON/CSV/TSV/XML kütüphane aktarımı.
-- Altı tema, altı yazı tipi ve yerel önbellekle daha hızlı açılış.
+- Altı tema, üç oyun atmosferi arka planı, altı yazı tipi ve üç yazı boyutu.
+- Düşük kaynak kullanan hareketli/parallax arka plan ve azaltılmış hareket desteği.
 
-### Kullanım
+### Kurulum ve kullanım
 
-1. Release bölümünden `Game-Compass-0.2.0-portable.exe` dosyasını indir.
-2. Uygulamayı aç ve beş adımlı profil sihirbazını tamamla.
-3. Sevdiğin türleri ve önermemem gereken oyun tiplerini yaz; kategori ve alt türleri çoklu seç.
-4. Karşılama ekranındaki günün önerisini incele, istersen rehberli turu başlat.
-5. Kütüphaneni istersen sonradan Steam Web API veya dosya aktarımıyla ekle.
+1. Releases bölümünden `Game-Compass-0.3.0-Setup.exe` dosyasını indir.
+2. Kurulum sihirbazında hedef klasörü seç; istersen masaüstü ve Başlat menüsü kısayollarını oluştur.
+3. Uygulamayı aç ve beş adımlı profil sihirbazını tamamla.
+4. Sevdiğin türleri ve önermem gereken oyun tiplerini yaz; kategori ve alt türleri çoklu seç.
+5. Karşılama ekranındaki günün önerisini incele, istersen rehberli turu başlat.
+6. Kütüphaneni istersen sonradan Steam Web API veya dosya aktarımıyla ekle.
 
 Steam aktarımı şifre istemez. Steam Web API anahtarı ve SteamID64/profil adresi gerekir; Steam'de oyun ayrıntılarının herkese açık olması gerekir. API anahtarı uygulamada saklanmaz. Ayrıntılar için [FAQ](FAQ.md) dosyasına bak.
+
+### Kaldırma ve yerel veriler
+
+Game Compass, Windows Uygulamalar/Programlar ekranından kaldırılabilir. Kaldırma kurulum dosyalarını ve kısayolları siler; profillerin, notların ve yerel kütüphanen `Belgeler\Game Compass\runtime\data` klasöründe korunur. Verileri kaldırmak istersen bu klasörü ayrıca silebilirsin. Uygulama eski sürümlerdeki `%APPDATA%\oyun-pusulasi-gamecompass` klasörünü ilk açılışta yeni konuma taşımayı dener.
 
 ### Kaynaktan derleme
 
@@ -39,11 +45,11 @@ npm ci
 npm run dist -- --publish never
 ```
 
-Portable build `electron/dist/` altında oluşur.
+Kurulum dosyası `electron/dist/Game-Compass-0.3.0-Setup.exe` altında oluşur.
 
 ### Veri ve gizlilik
 
-Uygulama Steam şifresini, çerezlerini veya Steam istemcisi oturumunu okumaz. Kullanıcı verileri Windows'ta `%APPDATA%\oyun-pusulasi-gamecompass\runtime\data` altında tutulur. Steam aktarımı isteğe bağlıdır ve haftalık mağaza güncellemesi oynama saatlerini takip etmez.
+Uygulama Steam şifresini, çerezlerini veya Steam istemcisi oturumunu okumaz. Kullanıcı verileri Windows'ta `Belgeler\Game Compass\runtime\data` altında tutulur. Steam aktarımı isteğe bağlıdır ve haftalık mağaza güncellemesi oynama saatlerini takip etmez.
 
 ## English
 
@@ -58,17 +64,23 @@ Uygulama Steam şifresini, çerezlerini veya Steam istemcisi oturumunu okumaz. K
 - Steam rating, review count, release date, short summary, and a Steam page link.
 - Upcoming releases, new additions, personal shelves, saves, comparisons, and planning.
 - Optional Steam Web API import or local JSON/CSV/TSV/XML library import.
-- Six themes, six fonts, local caching for a faster start, and a portable Windows build named **Game Compass**.
+- Six themes, three game-atmosphere backgrounds, six fonts, and three font sizes.
+- A low-cost animated/parallax background with reduced-motion support.
 
-### Getting started
+### Installation and getting started
 
-1. Download `Game-Compass-0.2.0-portable.exe` from the Releases page.
-2. Open the app and complete the required five-step profile wizard.
-3. Describe the genres and game types you enjoy or want to avoid, then choose multiple categories and subgenres.
-4. Review the game of the day and start the guided tour if you want an introduction.
-5. Optionally import your library later through Steam Web API or a file.
+1. Download `Game-Compass-0.3.0-Setup.exe` from the Releases page.
+2. Choose the installation folder in the setup wizard and optionally create Desktop and Start Menu shortcuts.
+3. Open the app and complete the required five-step profile wizard.
+4. Describe the genres and game types you enjoy or want to avoid, then choose multiple categories and subgenres.
+5. Review the game of the day and start the guided tour if you want an introduction.
+6. Optionally import your library later through Steam Web API or a file.
 
 Steam import does not ask for your password. It requires a Steam Web API key and a SteamID64/profile URL, and Steam Game Details must be public. The API key is not stored by the app. See [FAQ](FAQ.md) for details.
+
+### Uninstalling and local data
+
+Game Compass can be removed from Windows Apps/Programs. Uninstalling removes the installed application and shortcuts; profiles, notes, and the local library remain in `Documents\Game Compass\runtime\data`. Delete that folder separately if you also want to remove user data. On first launch, the app attempts to migrate legacy data from `%APPDATA%\oyun-pusulasi-gamecompass` to the new location.
 
 ### Build from source
 
@@ -80,17 +92,17 @@ npm ci
 npm run dist -- --publish never
 ```
 
-The portable build is written to `electron/dist/`.
+The installer is written to `electron/dist/Game-Compass-0.3.0-Setup.exe`.
 
 ### Data and privacy
 
-The app does not read your Steam password, cookies, or Steam client session. User data is stored locally at `%APPDATA%\oyun-pusulasi-gamecompass\runtime\data` on Windows. Steam import is optional, and the weekly store update does not track playtime changes.
+The app does not read your Steam password, cookies, or Steam client session. User data is stored locally at `Documents\Game Compass\runtime\data` on Windows. Steam import is optional, and the weekly store update does not track playtime changes.
 
 ## Project files
 
-- `runtime/` — browser UI, local Python service, catalog seed, and update scripts.
-- `electron/` — portable Electron host and release build configuration.
-- [FAQ](FAQ.md) — common setup and privacy questions.
+- `runtime/` — browser UI, local Python service, catalog seed, background art, and update scripts.
+- `electron/` — Electron host and Windows NSIS installer configuration.
+- [FAQ](FAQ.md) — common setup, data, and privacy questions.
 - [Credits](CREDITS.md) — project and technology acknowledgements.
 
 ## License

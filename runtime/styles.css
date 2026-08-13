@@ -23,11 +23,7 @@ html, body { margin: 0; min-height: 100%; background: var(--canvas); }
 
 body {
   color: var(--ink);
-  background-image:
-    linear-gradient(rgba(182, 238, 156, .025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(182, 238, 156, .025) 1px, transparent 1px),
-    radial-gradient(circle at 75% 0%, rgba(91, 137, 111, .16), transparent 34rem);
-  background-size: 42px 42px, 42px 42px, auto;
+  background-image: radial-gradient(circle at 78% -8%, rgba(91, 137, 111, .22), transparent 34rem), linear-gradient(135deg, #091110, #0b1517 55%, #11101a);
 }
 
 button, input, select, textarea { font: inherit; }
@@ -344,7 +340,7 @@ select:focus, textarea:focus, input:focus { border-color: rgba(182, 238, 156, .5
 [data-theme="field"] { --canvas: #10140f; --panel: #1b241c; --panel-deep: #121a13; --panel-soft: #2a3524; --mint: #d8ee83; --mint-strong: #a8d85d; --pink: #f2946c; --orange: #ffc96d; --red: #ef887d; --cyan: #8bd9ce; }
 [data-theme="synth"] { --canvas: #140a20; --panel: #211135; --panel-deep: #180d2a; --panel-soft: #32184d; --mint: #67f4ff; --mint-strong: #c27bff; --pink: #ff55c8; --orange: #ffb86b; --red: #ff789e; --cyan: #67f4ff; }
 
-body { font-family: "Segoe UI", system-ui, sans-serif; background-image: linear-gradient(rgba(99, 231, 255, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 111, 181, .025) 1px, transparent 1px), radial-gradient(circle at 75% 0%, color-mix(in srgb, var(--mint) 20%, transparent), transparent 34rem); background-size: 42px 42px, 42px 42px, auto; }
+body { font-family: "Segoe UI", system-ui, sans-serif; background-image: radial-gradient(circle at 75% 0%, color-mix(in srgb, var(--mint) 20%, transparent), transparent 34rem), linear-gradient(135deg, var(--canvas), color-mix(in srgb, var(--panel-deep) 76%, #11101a)); background-size: auto; }
 h1, h2, h3, .brand-name, .card-title, .drawer-header h2, .profile-panel h3, .update-card h3 { font-family: var(--display-font); letter-spacing: -.045em; }
 h1 { font-weight: 800; text-transform: uppercase; }
 h2, h3 { font-weight: 700; }
@@ -562,3 +558,60 @@ h1, h2, h3, .brand-name, .card-title, .drawer-header h2, .profile-panel h3, .upd
 
 @media (max-width: 1050px) { .welcome-shell { grid-template-columns: 1fr; }.welcome-copy { padding: 4px; }.welcome-game { max-width: 720px; } }
 @media (max-width: 760px) { .language-switcher { grid-column: 1; }.guide-button { grid-column: 2; }.welcome-shell { padding: 20px; }.welcome-game { grid-template-columns: 1fr; }.welcome-cover { min-height: 165px; max-height: 210px; }.wizard-choice-grid, .wizard-theme-grid, .wizard-font-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.wizard-step-tabs span { font-size: 8px; }.wizard-step-tabs b { font-size: 11px; }.wizard-content { min-height: 350px; } }
+
+/* Game Compass 0.3 release controls. */
+:root { --type-scale: 1; }
+html[data-font-size="small"] { --type-scale: .9; }
+html[data-font-size="large"] { --type-scale: 1.1; }
+body { font-size: calc(13px * var(--type-scale)); }
+[data-font-size="small"] .view-subtitle, [data-font-size="small"] .hero-copy p, [data-font-size="small"] .profile-panel > p, [data-font-size="small"] .update-card p { font-size: 11px; }
+[data-font-size="large"] .view-subtitle, [data-font-size="large"] .hero-copy p, [data-font-size="large"] .profile-panel > p, [data-font-size="large"] .update-card p { font-size: 15px; }
+.release-update { display: grid; grid-template-columns: 8px 1fr auto; align-items: center; gap: 8px; margin-top: 16px; padding: 9px 8px; border: 1px solid color-mix(in srgb, var(--orange) 46%, transparent); border-radius: 8px; background: color-mix(in srgb, var(--orange) 10%, var(--panel)); }
+.release-update-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px color-mix(in srgb, var(--orange) 16%, transparent); }
+.release-update-copy { min-width: 0; }
+.release-update-copy strong, .release-update-copy small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.release-update-copy strong { color: var(--orange); font-size: 10px; }
+.release-update-copy small { margin-top: 2px; color: var(--faint); font-size: 9px; }
+.release-update .text-button { padding: 3px 0; color: var(--orange); font-size: 9px; white-space: nowrap; }
+.github-link { display: flex; align-items: center; gap: 7px; width: 100%; margin-top: 16px; padding: 7px 0; border: 0; color: var(--muted); background: transparent; text-align: left; font-size: 10px; }
+.github-link:hover { color: var(--ink); }
+.github-link svg { width: 16px; height: 16px; fill: currentColor; }
+.made-by { margin-top: 3px; color: var(--faint); font-size: 9px; letter-spacing: .05em; }
+.profile-backup-panel { margin-top: 20px; padding-top: 17px; border-top: 1px solid var(--line); }
+.profile-backup-panel h4 { margin-top: 7px; color: var(--ink); font-family: var(--display-font); font-size: 17px; font-weight: 500; }
+.profile-backup-panel p { max-width: 480px; margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.55; }
+.profile-backup-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.font-size-kicker { margin-top: 24px; }
+.font-size-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin-top: 10px; }
+.font-size-choice { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 9px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); background: color-mix(in srgb, var(--panel-deep) 85%, transparent); text-align: left; }
+.font-size-choice:hover, .font-size-choice.active { color: var(--ink); border-color: var(--mint); background: color-mix(in srgb, var(--mint) 10%, var(--panel)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--mint) 18%, transparent); }
+.font-size-sample { display: inline-grid; place-items: center; width: 27px; height: 27px; flex: 0 0 auto; border-radius: 5px; color: var(--mint); background: color-mix(in srgb, var(--mint) 10%, var(--panel)); font-family: var(--display-font); }
+.font-size-small { font-size: 10px; }.font-size-normal { font-size: 14px; }.font-size-large { font-size: 18px; }
+.font-size-choice > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+.wizard-font-size-grid { margin-bottom: 4px; }
+
+@media (max-width: 760px) { .font-size-grid { grid-template-columns: 1fr; }.release-update { grid-template-columns: 8px 1fr; }.release-update .text-button { grid-column: 2; justify-self: start; }.profile-backup-actions { flex-direction: column; align-items: stretch; } }
+
+/* Living game-world backgrounds. The image stays decorative and the motion remains lightweight. */
+body { position: relative; isolation: isolate; overflow-x: hidden; }
+body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; }
+body::before { z-index: -1; background-position: center; background-repeat: no-repeat; background-size: cover; opacity: .26; filter: saturate(1.08) contrast(1.06); transform: scale(1.045); animation: compass-background-drift 42s ease-in-out infinite alternate; }
+body::after { z-index: 0; background: radial-gradient(circle at 50% 38%, transparent 0, rgba(4, 8, 9, .12) 40%, rgba(4, 8, 9, .62) 100%), linear-gradient(90deg, rgba(5, 10, 10, .54), transparent 28%, transparent 72%, rgba(5, 10, 10, .42)); mix-blend-mode: multiply; }
+html[data-background="tactical"] body::before { background-image: url("/assets/backgrounds/background-tactical.png"); }
+html[data-background="neon"] body::before { background-image: url("/assets/backgrounds/background-neon.png"); }
+html[data-background="management"] body::before { background-image: url("/assets/backgrounds/background-management.png"); }
+@keyframes compass-background-drift { 0% { background-position: 50% 50%; transform: scale(1.045) translate3d(-.4%, -.2%, 0); } 100% { background-position: 53% 48%; transform: scale(1.08) translate3d(.4%, .25%, 0); } }
+.app-shell { position: relative; z-index: 1; }
+.background-kicker { margin-top: 25px; }
+.background-body { max-width: 540px; margin-top: 6px; color: var(--faint); font-size: 10px; line-height: 1.5; }
+.background-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.background-choice { position: relative; min-width: 0; aspect-ratio: 16 / 8.5; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--panel-deep); text-align: left; transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+.background-choice:hover, .background-choice.active { border-color: var(--mint); box-shadow: 0 0 0 1px color-mix(in srgb, var(--mint) 28%, transparent), 0 12px 28px rgba(0, 0, 0, .18); transform: translateY(-2px); }
+.background-choice img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .82; transition: transform .5s ease, opacity .22s ease; }
+.background-choice:hover img, .background-choice.active img { opacity: 1; transform: scale(1.045); }
+.background-choice::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 24%, rgba(4, 8, 9, .82)); }
+.background-choice-overlay { position: absolute; z-index: 1; inset: auto 8px 7px; display: flex; align-items: end; justify-content: space-between; gap: 7px; }
+.background-choice-overlay strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--display-font); font-size: 10px; }
+.background-choice-overlay small { color: var(--mint); font-size: 9px; letter-spacing: .12em; }
+@media (max-width: 760px) { .background-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { body::before, .background-choice, .background-choice img { animation: none; transition: none; } }

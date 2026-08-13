@@ -1,41 +1,33 @@
-# Oyun Pusulası / Game Compass v0.2.0
+# Oyun Pusulası / Game Compass v0.3.0
 
 ## Türkçe
 
-- İlk açılışta profil oluşturmadan uygulamaya geçiş engellendi.
-- İsim, isteğe bağlı Steam profil adı, serbest metin tercihleri, kategori/alt tür çoklu seçimleri, tema, yazı tipi, dil ve kullanım koşullarını içeren beş adımlı profil sihirbazı eklendi.
-- Türkçe/İngilizce arayüz seçimi eklendi; İngilizce uygulama adı **Game Compass** oldu.
-- Profil oluşturma sonrası karşılama ekranı ve günün önerisi eklendi.
-- Sekmeleri ve düğmeleri renkli odak kutusuyla gösteren, adım atlama ve turu atlama seçenekli rehber eklendi.
-- Altı tema, altı yazı tipi, Steam aktarımı, kategori/alt tür filtreleri ve yerel veri davranışı korundu.
+Game Compass v0.3.0, taşınabilir dosya yerine Windows kurulum deneyimi ve daha canlı bir oyun keşfi görünümü sunar.
+
+- NSIS kurulum sihirbazı eklendi: kurulum klasörü seçimi, masaüstü/ Başlat menüsü kısayolları ve Windows kaldırma kaydı.
+- Uygulama dosyaları ile kullanıcı verileri ayrıldı. Profil, not, raf ve yerel kütüphane verileri `Belgeler\Game Compass\runtime\data` altında tutulur; kaldırma sırasında korunur.
+- Eski `%APPDATA%\oyun-pusulasi-gamecompass` alanı ilk açılışta yeni Documents konumuna taşınmayı dener.
+- Kullanıcının seçtiği üç oyun atmosferi arka planı eklendi. Birinci görsel varsayılandır; neon ve management varyantları ayarlardan seçilebilir.
+- Arka planlara düşük kaynak tüketimli hafif hareket/parallax efekti eklendi; azaltılmış hareket tercihi desteklenir.
+- Altı tema, altı yazı tipi ve küçük/normal/büyük yazı boyutu seçenekleri korunup ayar ekranında görünür hale getirildi.
+- Türkçe/İngilizce arayüz kapsamı tamamlandı; kategori ve alt tür adları iki dilde de İngilizce tutuldu.
+- Rehber, kategori bazlı öneri listelerini ve New arrivals, Upcoming releases, Saved, Personal shelves, Profile ve Updates sekmelerini adım adım gösterir.
+- Profil oluşturma sihirbazında canlı tema ve yazı tipi önizlemesi, çoklu kategori/alt tür seçimi ve kullanım koşulları akışı bulunur.
+- Yerel profil yedekleme/geri yükleme, çoklu profil, Steam Web API/dosya aktarımı, künye bilgileri, öneriler, kaydetme, karşılaştırma ve planlama korunur.
+- GitHub sürüm kontrolü, GitHub bağlantısı ve Game Compass markalı kurulum paketi eklendi.
 
 ## English
 
-- First launch now requires a profile before the app can be entered.
-- Added a five-step profile wizard for name, optional Steam profile name, free-text preferences, multi-select categories/subgenres, theme, font, language, and terms of use.
-- Added Turkish/English UI selection; the English product name is now **Game Compass**.
-- Added a post-creation welcome screen with a game of the day.
-- Added a guided tour with a colored focus frame, step skipping, and tutorial skipping.
-- Preserved the six themes, six fonts, optional Steam import, category/subgenre filters, and local-first data behavior.
+Game Compass v0.3.0 replaces the portable-only flow with a Windows installer and a more vivid game-discovery experience.
 
-# Oyun Pusulası / Game Compass v0.1.0
-
-## Türkçe
-
-İlk public release.
-
-- Uygulama kişisel profil ve kütüphane verisi olmadan başlar.
-- İlk açılışta yeni profil oluşturma akışı açılır.
-- İsteğe bağlı Steam Web API ve dosya kütüphanesi aktarımı bulunur.
-- Kategori/alt tür filtreleri, yaklaşan oyunlar, künye görünümü, raflar ve planlama dahildir.
-- Altı tema, altı yazı tipi ve pusula ikonlu portable Windows build içerir.
-
-## English
-
-First public release.
-
-- Starts without bundled personal profile or library data.
-- Opens the new-profile flow on first launch.
-- Includes optional Steam Web API and file-based library import.
-- Includes category/subgenre filters, upcoming releases, game details, shelves, and planning.
-- Ships with six themes, six fonts, and a compass-branded portable Windows build.
+- Added an NSIS setup wizard with a selectable install folder, Desktop/Start Menu shortcuts, and a Windows uninstall entry.
+- Separated application files from user data. Profiles, notes, shelves, and the local library are stored in `Documents\Game Compass\runtime\data` and survive uninstall.
+- The app attempts to migrate legacy data from `%APPDATA%\oyun-pusulasi-gamecompass` to the new Documents location on first launch.
+- Added three user-selectable game-atmosphere backgrounds. The first generated visual is the default; the neon and management variants are available in settings.
+- Added a lightweight animated/parallax effect with reduced-motion support.
+- Preserved six themes, six fonts, and small/normal/large font-size choices, with visible previews in settings.
+- Completed Turkish/English UI coverage; category and subgenre names intentionally remain in English in both languages.
+- The guide now explains categorized recommendation lists and the New arrivals, Upcoming releases, Saved, Personal shelves, Profile, and Updates sections step by step.
+- The profile wizard includes live theme/font previews, multi-select category/subgenre choices, and terms-of-use confirmation.
+- Preserved local profile backup/restore, multiple profiles, Steam Web API/file import, game cards, recommendations, saves, comparisons, and planning.
+- Added GitHub release checking, a GitHub sidebar link, and a Game Compass-branded installer package.

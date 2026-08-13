@@ -44,7 +44,7 @@ function ensureRuntime() {
   if (!fs.existsSync(path.join(target, "server.py"))) {
     copyDirectory(source, target);
   } else {
-    for (const file of ["index.html", "styles.css", "app.js", "server.py", "sw.js", "release-v020.js"]) {
+    for (const file of ["index.html", "styles.css", "app.js", "server.py", "sw.js", "release-v020.js", "release-v030.js"]) {
       fs.copyFileSync(path.join(source, file), path.join(target, file));
     }
     if (fs.existsSync(path.join(source, "assets"))) copyDirectory(path.join(source, "assets"), path.join(target, "assets"));
@@ -144,7 +144,11 @@ async function runWeeklyUpdate() {
 }
 
 function configureUserDataPath() {
-  app.setPath("userData", path.join(app.getPath("appData"), "oyun-pusulasi-gamecompass"));
+  const legacy = path.join(app.getPath("appData"), "oyun-pusulasi-gamecompass");
+  const documentsPath = path.join(app.getPath("documents"), "Game Compass");
+  if (!fs.existsSync(documentsPath) && fs.existsSync(legacy)) copyDirectory(legacy, documentsPath);
+  app.setPath("userData", documentsPath);
+  app.setAppUserModelId("bomontius.gamecompass");
 }
 
 async function createWindow() {
