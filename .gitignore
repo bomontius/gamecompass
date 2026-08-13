@@ -1,0 +1,10 @@
+electron/node_modules/
+electron/dist/
+runtime/__pycache__/
+runtime/scripts/__pycache__/
+electron/runtime/__pycache__/
+electron/runtime/scripts/__pycache__/
+*.pyc
+*.log
+*.user
+*.exe

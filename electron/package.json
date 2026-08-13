@@ -1,0 +1,48 @@
+{
+  "name": "oyun-pusulasi-desktop",
+  "version": "0.1.0",
+  "description": "Kisisel Steam oyun kesif masasi",
+  "main": "main.js",
+  "author": "Oyun Pusulasi",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^38.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "local.oyunpusulasi.desktop",
+    "productName": "Oyun Pusulasi",
+    "artifactName": "Oyun-Pusulasi-${version}-portable.${ext}",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "icon": "assets/oyun-pusulasi-icon.ico",
+    "files": [
+      "main.js",
+      "package.json",
+      "assets/oyun-pusulasi-icon.ico"
+    ],
+    "extraResources": [
+      {
+        "from": "runtime",
+        "to": "runtime"
+      }
+    ],
+    "win": {
+      "icon": "assets/oyun-pusulasi-icon.ico",
+      "target": [
+        "portable"
+      ],
+      "signExecutable": false
+    }
+  },
+  "allowScripts": {
+    "electron@38.8.6": true,
+    "electron-winstaller@5.4.0": true
+  }
+}
