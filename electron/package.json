@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win nsis --x64"
+    "dist": "node build/prepare-nsis.js && electron-builder --win nsis --x64"
   },
   "devDependencies": {
     "electron": "^38.1.0",
@@ -44,7 +44,8 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Game Compass",
-      "uninstallDisplayName": "Game Compass"
+      "uninstallDisplayName": "Game Compass",
+      "include": "build/custom.nsh"
     }
   },
   "allowScripts": {

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Oyun Pusulası</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=20260813-3">
 </head>
 <body>
   <div class="app-shell">
@@ -18,7 +18,7 @@
       </div>
 
       <div class="sidebar-label">KEŞFET</div>
-      <nav class="main-nav" aria-label="Ana gezinme">
+      <nav class="main-nav explore-nav" aria-label="Ana gezinme">
         <button class="nav-item active" data-view="home"><span class="nav-icon">✦</span><span>Sana göre</span><span class="nav-count" id="strongCount">—</span></button>
         <button class="nav-item" data-view="new"><span class="nav-icon">↗</span><span>Yeni gelenler</span><span class="nav-count" id="newCount">—</span></button>
         <button class="nav-item" data-view="upcoming"><span class="nav-icon">◷</span><span>Yakında çıkacaklar</span><span class="nav-count" id="upcomingCount">—</span></button>
@@ -28,8 +28,12 @@
         <button class="nav-item" data-view="shelves"><span class="nav-icon">▤</span><span>Kişisel raflar</span></button>
       </nav>
 
+      <nav class="main-nav welcome-nav" aria-label="Welcome">
+        <button class="nav-item welcome-nav-item" data-view="welcome"><span class="nav-icon">*</span><span>Merhaba</span></button>
+      </nav>
+
       <div class="sidebar-label sidebar-label-spaced">AYARLAR</div>
-      <nav class="main-nav" aria-label="Ayarlar">
+      <nav class="main-nav settings-nav" aria-label="Ayarlar">
         <button class="nav-item" data-view="excluded"><span class="nav-icon">⊘</span><span>Dışlananlar</span><span class="nav-count" id="excludedCount">—</span></button>
         <button class="nav-item" data-view="profile"><span class="nav-icon">⌁</span><span>Profil ve temalar</span></button>
         <button class="nav-item" data-view="updates"><span class="nav-icon">◴</span><span>Güncelleme durumu</span></button>
@@ -226,8 +230,8 @@
       <div class="guide-actions"><button class="text-button" id="guideSkipStep" type="button">Bu adımı atla</button><button class="text-button danger-text" id="guideSkip" type="button">Rehberi atla</button><button class="update-button" id="guideNext" type="button">İleri</button></div>
     </aside>
   </div>
-  <script src="/app.js"></script>
-  <script src="/release-v020.js"></script>
-  <script src="/release-v030.js"></script>
+  <script src="/app.js?v=20260813-3"></script>
+  <script src="/release-v020.js?v=20260813-3"></script>
+  <script src="/release-v030.js?v=20260813-3"></script>
 </body>
 </html>

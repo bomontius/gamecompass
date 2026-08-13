@@ -1,4 +1,4 @@
-const CACHE_NAME = "oyun-pusulasi-shell-v3";
+const CACHE_NAME = "oyun-pusulasi-shell-v4";
 const SHELL = ["/", "/index.html", "/styles.css", "/app.js"];
 
 self.addEventListener("install", (event) => {

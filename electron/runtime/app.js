@@ -49,6 +49,8 @@ const app = {
     catalogByNormalized: null,
     libraryCards: null,
     librarySource: null,
+    libraryPreferenceTerms: null,
+    libraryPreferenceSource: null,
     gameText: new Map(),
     normalizedGameText: new Map(),
     categories: new Map(),
@@ -177,6 +179,8 @@ function resetDerivedCache() {
   app.cache.catalogByNormalized = null;
   app.cache.libraryCards = null;
   app.cache.librarySource = null;
+  app.cache.libraryPreferenceTerms = null;
+  app.cache.libraryPreferenceSource = null;
   app.cache.gameText.clear();
   app.cache.normalizedGameText.clear();
   app.cache.categories.clear();
@@ -243,6 +247,23 @@ function libraryCards() {
   return app.cache.libraryCards;
 }
 
+function libraryPreferenceTerms() {
+  if (app.cache.libraryPreferenceTerms && app.cache.libraryPreferenceSource === app.library) return app.cache.libraryPreferenceTerms;
+  const counts = new Map();
+  libraryCards().forEach((game) => {
+    const terms = [...(game.generalCategories || []), ...(game.subgenres || []), ...(game.tags || [])]
+      .map(cleanText)
+      .filter((term) => term && normalize(term) !== "library");
+    [...new Set(terms)].forEach((term) => counts.set(term, (counts.get(term) || 0) + 1));
+  });
+  app.cache.libraryPreferenceSource = app.library;
+  app.cache.libraryPreferenceTerms = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "tr"))
+    .slice(0, 80)
+    .map(([term]) => term);
+  return app.cache.libraryPreferenceTerms;
+}
+
 function gameText(game) {
   if (!app.cache.gameText.has(game.id)) app.cache.gameText.set(game.id, [game.title, game.reason, game.shortDescription, ...(game.tags || []), ...(game.generalCategories || []), ...(game.subgenres || []), ...(game.genres || []), ...(game.categories || [])].map(cleanText).join(" "));
   return app.cache.gameText.get(game.id);
@@ -266,7 +287,13 @@ function profileFit(game) {
   if (isBlocked(game)) return -100;
   if (game.owned) return 0;
   const extraPositive = (app.state.extraPreferences || []).filter((item) => item.direction === "more").flatMap((item) => item.tags || []);
-  const desired = [...(app.state.positiveTags || []), ...(app.state.preferredCategories || []), ...(app.state.preferredSubgenres || []), ...extraPositive].filter(Boolean);
+  const desired = [...new Set([
+    ...(app.state.positiveTags || []),
+    ...(app.state.preferredCategories || []),
+    ...(app.state.preferredSubgenres || []),
+    ...extraPositive,
+    ...libraryPreferenceTerms(),
+  ].filter(Boolean))];
   if (app.activeProfile.kind === "custom") {
     if (!desired.length) return 0;
     return desired.reduce((score, term) => score + (includesTerm(game, term) ? 2 : 0), 0);
@@ -444,6 +471,30 @@ function renderCounts() {
   document.getElementById("metricUpcoming").textContent = formatNumber(upcoming);
 }
 
+function syncInitialUpdatePrompt() {
+  const needsInitialUpdate = !app.catalog.lastUpdatedAt && !app.updateInProgress;
+  const prompt = uiText("\u0130lk listeyi haz\u0131rlamak i\u00e7in \u015eimdi g\u00fcncelle d\u00fc\u011fmesine bas.", "Press Update now to prepare your first discovery list.");
+  const button = document.getElementById("updateButton");
+  if (button) {
+    button.classList.toggle("needs-initial-update", needsInitialUpdate);
+    button.dataset.firstUpdate = String(needsInitialUpdate);
+    button.title = needsInitialUpdate ? prompt : uiText("Katalo\u011fu yenile", "Refresh catalog");
+  }
+  const cardButton = document.querySelector("[data-trigger-update]");
+  const card = cardButton?.closest(".update-card");
+  if (!card) return;
+  const existing = card.querySelector(".first-update-alert");
+  if (needsInitialUpdate && !existing) {
+    const alert = document.createElement("div");
+    alert.className = "first-update-alert";
+    alert.setAttribute("role", "alert");
+    alert.innerHTML = `<span class="first-update-alert-icon">!</span><div><strong>${uiText("\u0130lk g\u00fcncelleme gerekli", "First update required")}</strong><p>${prompt}</p></div>`;
+    card.insertBefore(alert, card.firstChild);
+  } else if (!needsInitialUpdate) existing?.remove();
+  cardButton?.classList.toggle("needs-initial-update", needsInitialUpdate);
+  if (cardButton) cardButton.dataset.firstUpdate = String(needsInitialUpdate);
+}
+
 function renderSync() {
   const label = app.catalog.lastUpdatedAt ? `Son: ${formatDate(app.catalog.lastUpdatedAt)}` : "İlk güncelleme bekleniyor";
   document.getElementById("topbarSync").textContent = label;
@@ -494,9 +545,24 @@ function renderUpdates() {
   notifyLocaleRender();
 }
 
+const baseRenderUpdates = renderUpdates;
+renderUpdates = function renderUpdatesWithInitialPrompt() {
+  baseRenderUpdates();
+  syncInitialUpdatePrompt();
+};
+
 function renderLibraryTools() {
   const element = document.getElementById("libraryTools");
   element.classList.toggle("hidden", app.view !== "library");
+  const copy = element.firstElementChild;
+  if (copy && !copy.querySelector("#libraryGuidance")) {
+    const guidance = document.createElement("p");
+    guidance.id = "libraryGuidance";
+    guidance.className = "library-guidance";
+    copy.appendChild(guidance);
+  }
+  const guidance = document.getElementById("libraryGuidance");
+  if (guidance) guidance.textContent = uiText("K\u00fct\u00fcphanendeki oyunlar sevdi\u011fin sistemler i\u00e7in ek bir sinyaldir ve \u00f6nerileri etkiler. Bir oyunun t\u00fcr\u00fcn\u00fc \u00f6nermemizi istemiyorsan k\u00fcnyedeki \u201cBu oyun tipini \u00f6nerme\u201d se\u00e7ene\u011fini kullanabilirsin.", "Games in your library are an additional signal for the systems you enjoy and influence recommendations. If you do not want us to recommend a game's type, use \u201cDo not recommend this game type\u201d in its dossier.");
 }
 
 function renderCompareTray() {
@@ -518,6 +584,7 @@ function renderAll() {
     : "Koloniler, yaşayan şehirler, gerçek tarihe dayalı strateji ve kararlarının sonuç verdiği yönetim oyunları senin keşif alanın.";
   renderCounts();
   renderSync();
+  syncInitialUpdatePrompt();
   renderProfileSelect();
   renderFilters();
   renderCompareTray();
@@ -544,6 +611,11 @@ function setView(view) {
   document.getElementById("viewEyebrow").textContent = meta[0];
   document.getElementById("viewTitle").textContent = meta[1];
   document.getElementById("viewSubtitle").textContent = meta[2];
+  if (app.view === "library") {
+    document.getElementById("viewEyebrow").textContent = uiText("KÜTÜPHANEM", "MY LIBRARY");
+    document.getElementById("viewTitle").textContent = uiText("Kendi oyunların", "Your games");
+    document.getElementById("viewSubtitle").textContent = uiText("Kütüphanendeki oyunlar, zevk profilin için ek sinyaldir.", "Games in your library are an additional signal for your taste profile.");
+  }
   const special = ["profile", "updates"].includes(app.view);
   const shelves = app.view === "shelves";
   document.getElementById("homeHero").classList.toggle("hidden", app.view !== "home");
@@ -566,6 +638,12 @@ function setView(view) {
     document.getElementById("sectionTitle").textContent = title[1];
     document.getElementById("gridKicker").textContent = title[0];
     document.getElementById("gridTitle").textContent = title[1];
+    if (app.view === "library") {
+      document.getElementById("sectionKicker").textContent = uiText("KÜTÜPHANEM", "MY LIBRARY");
+      document.getElementById("sectionTitle").textContent = uiText("Kendi oyunların", "Your games");
+      document.getElementById("gridKicker").textContent = uiText("KÜTÜPHANEN", "YOUR LIBRARY");
+      document.getElementById("gridTitle").textContent = uiText("Kütüphanendeki oyunlar", "Games in your library");
+    }
     renderCurrentView();
   }
 }
@@ -600,6 +678,10 @@ function openDrawer(gameId) {
   const followed = app.state.followedUpcoming.includes(game.id);
   const media = mediaMarkup(game);
   document.getElementById("drawerContent").innerHTML = `<div class="drawer-cover">${image ? `<img src="${escapeHtml(image)}" alt="">` : `<div class="cover-fallback">${escapeHtml(game.title)}</div>`}</div><div class="drawer-header"><div class="section-kicker">${game.isUpcoming ? "YAKINDA ÇIKIYOR" : game.owned ? "KÜTÜPHANENDEN REFERANS" : "SANA GÖRE KEŞİF"}</div><h2>${escapeHtml(game.title)}</h2><p>${escapeHtml(game.shortDescription || "Steam mağaza özeti henüz alınmadı.")}</p></div><div class="drawer-tags">${categories.map((tag) => `<span class="game-tag">${escapeHtml(tag)}</span>`).join("")}</div><div class="drawer-facts"><div class="drawer-fact"><label>Steam puanı</label><strong>${escapeHtml(review)}</strong></div><div class="drawer-fact"><label>Çıkış</label><strong>${escapeHtml(game.releaseDate || "—")}</strong></div><div class="drawer-fact"><label>Kategori</label><strong>${escapeHtml(categoryList(game).join(" · "))}</strong></div><div class="drawer-fact"><label>Oynama</label><strong>${game.owned ? formatHours(game.playtimeHours) : "Kütüphanende değil"}</strong></div></div><div class="drawer-reason">${escapeHtml(game.reason || "Profilinle eşleşen bir keşif.")}</div>${media}<div class="drawer-section"><div class="drawer-section-label">SENİN KARARIN</div><div class="drawer-actions"><button class="drawer-action ${app.state.favorites.includes(game.id) ? "active" : ""}" data-drawer-action="favorite">${app.state.favorites.includes(game.id) ? "★ Kayıtlı" : "☆ Kaydet"}</button><button class="drawer-action ${app.compareSet.has(game.id) ? "active" : ""}" data-drawer-action="compare">${app.compareSet.has(game.id) ? "✓ Masada" : "+ Karşılaştır"}</button><button class="drawer-action" data-drawer-action="cycle-plan">Plan: ${escapeHtml(planLabel(game))}</button>${game.isUpcoming ? `<button class="drawer-action ${followed ? "active" : ""}" data-drawer-action="follow">${followed ? "Takipten çıkar" : "Çıkışı takip et"}</button>` : ""}<button class="drawer-action" data-drawer-action="add-shelf">Rafa ekle</button><button class="drawer-action" data-drawer-action="like">Beğendim</button><button class="drawer-action" data-drawer-action="dislike">Beğenmedim</button><button class="drawer-action danger" data-drawer-action="hide">Bu oyunu önerme</button><button class="drawer-action danger" data-drawer-action="block">Bu oyun tipini önerme</button></div></div><div class="drawer-section"><div class="drawer-section-label">KİŞİSEL NOT</div><textarea class="notes-area" id="drawerNote" placeholder="Bu oyun hakkında kendine bir not bırak...">${escapeHtml(note)}</textarea></div>${game.steamUrl ? `<button class="steam-link" type="button" data-open-steam="${escapeHtml(game.steamUrl)}">Steam sayfasını aç ↗</button>` : ""}`;
+  if (game.owned) {
+    const actionGroup = document.querySelector("#drawerContent .drawer-actions");
+    actionGroup?.insertAdjacentHTML("beforebegin", "<p class=\"drawer-guidance\">" + uiText("K\u00fct\u00fcphanendeki oyunlar zevk sinyali olarak kullan\u0131l\u0131r. Bu oyunun t\u00fcr\u00fcn\u00fc \u00f6nerilere yans\u0131tmak istemiyorsan a\u015fa\u011f\u0131daki \u201cBu oyun tipini \u00f6nerme\u201d se\u00e7ene\u011fini kullanabilirsin.", "Games in your library are used as taste signals. If you do not want this game's type reflected in recommendations, use \u201cDo not recommend this game type\u201d below.") + "</p>");
+  }
   document.getElementById("detailDrawer").classList.add("open");
   document.getElementById("detailDrawer").setAttribute("aria-hidden", "false");
   document.getElementById("drawerContent").dataset.gameId = game.id;
@@ -611,6 +693,21 @@ function closeDrawer() {
 }
 
 function toast(message, error = false) {
+  const activeDialog = [...document.querySelectorAll("dialog[open]")].at(-1);
+  if (activeDialog) {
+    let dialogToast = activeDialog.querySelector(".dialog-toast");
+    if (!dialogToast) {
+      dialogToast = document.createElement("div");
+      dialogToast.className = "dialog-toast";
+      activeDialog.appendChild(dialogToast);
+    }
+    dialogToast.textContent = message;
+    dialogToast.classList.toggle("error", error);
+    dialogToast.classList.add("show");
+    clearTimeout(app.dialogToastTimer);
+    app.dialogToastTimer = setTimeout(() => dialogToast.classList.remove("show"), 4200);
+    return;
+  }
   const element = document.getElementById("toast");
   element.textContent = message;
   element.classList.toggle("error", error);
@@ -928,6 +1025,7 @@ function openCompare() {
 async function runUpdate() {
   if (app.updateInProgress) return;
   app.updateInProgress = true;
+  syncInitialUpdatePrompt();
   document.getElementById("updateButton").disabled = true;
   document.getElementById("updateButton").innerHTML = "<span class=\"update-icon\">↻</span><span>Güncelleniyor…</span>";
   if (app.view === "updates") renderUpdates();
@@ -942,6 +1040,7 @@ async function runUpdate() {
     app.updateInProgress = false;
     document.getElementById("updateButton").disabled = false;
     document.getElementById("updateButton").innerHTML = "<span class=\"update-icon\">↻</span><span>Şimdi güncelle</span>";
+    syncInitialUpdatePrompt();
     if (app.view === "updates") renderUpdates();
   }
 }

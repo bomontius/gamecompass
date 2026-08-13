@@ -59,6 +59,20 @@
   messages.en.fontSmall = "Small";
   messages.en.fontNormal = "Normal";
   messages.en.fontLarge = "Large";
+  messages.tr.navWelcome = "Merhaba";
+  messages.en.navWelcome = "Welcome";
+  messages.tr.libraryGuidance = "Kütüphanendeki oyunlar sevdiğin sistemler için ek bir sinyaldir ve önerileri etkiler. Bir oyunun türünü önermemizi istemiyorsan künyedeki “Bu oyun tipini önerme” seçeneğini kullanabilirsin.";
+  messages.en.libraryGuidance = "Games in your library are an additional signal for the systems you enjoy and influence recommendations. If you do not want us to recommend a game's type, use “Do not recommend this game type” in its dossier.";
+  messages.tr.libraryViewKicker = "KÜTÜPHANEM";
+  messages.en.libraryViewKicker = "MY LIBRARY";
+  messages.tr.libraryViewTitle = "Kendi oyunların";
+  messages.en.libraryViewTitle = "Your games";
+  messages.tr.libraryViewSub = "Kütüphanendeki oyunlar, zevk profilin için ek sinyaldir.";
+  messages.en.libraryViewSub = "Games in your library are an additional signal for your taste profile.";
+  messages.tr.libraryGridKicker = "KÜTÜPHANEN";
+  messages.en.libraryGridKicker = "YOUR LIBRARY";
+  messages.tr.libraryGridTitle = "Kütüphanendeki oyunlar";
+  messages.en.libraryGridTitle = "Games in your library";
 
   Object.assign(phraseTranslations, {
     "KİŞİSEL RAF": "PERSONAL SHELF",
@@ -211,7 +225,7 @@
     document.documentElement.lang = lang();
     document.title = t("appName");
     setText(".brand-name", "appName"); setText(".brand-caption", "appCaption"); setText(".sidebar-label", "discover"); setText(".sidebar-label-spaced", "settings");
-    const navKeys = { home: "navHome", new: "navNew", upcoming: "navUpcoming", low: "navLow", favorites: "navFavorites", library: "navLibrary", shelves: "navShelves", excluded: "navExcluded", profile: "navProfile", updates: "navUpdates" };
+    const navKeys = { home: "navHome", new: "navNew", upcoming: "navUpcoming", low: "navLow", favorites: "navFavorites", library: "navLibrary", shelves: "navShelves", welcome: "navWelcome", excluded: "navExcluded", profile: "navProfile", updates: "navUpdates" };
     document.querySelectorAll(".nav-item").forEach((item) => { const span = item.querySelectorAll("span")[1]; if (span && navKeys[item.dataset.view]) span.textContent = t(navKeys[item.dataset.view]); });
     setText(".profile-switcher-label", "profile"); setText(".language-switcher .profile-switcher-label", "language"); setText("#guideButton", "guide"); setText("#guideSkipStep", "guideSkipStep"); setText("#guideSkip", "guideSkip"); setText("#guideNext", guide.index === guideSteps.length - 1 ? "guideFinish" : "guideNext");
     const updateLabel = document.querySelector("#updateButton span:last-child"); if (updateLabel) updateLabel.textContent = t("updateNow");
@@ -225,15 +239,25 @@
     setText("#sectionKicker", "priority"); setText("#sectionTitle", "homeTitle");
     const search = document.querySelector("#searchInput"); if (search) search.placeholder = t("searchPlaceholder"); const librarySearch = document.querySelector("#librarySearchInput"); if (librarySearch) librarySearch.placeholder = t("steamSearch");
     const sort = document.querySelector("#sortSelect"); if (sort) { const sortKeys = { fit: "fitSort", review: "reviewSort", release: "releaseSort", playtime: "playtimeSort" }; [...sort.options].forEach((option) => { if (sortKeys[option.value]) option.textContent = t(sortKeys[option.value]); }); }
-    setText(".library-tools .section-kicker", "steamAdd"); setText(".library-tools strong", "addLibraryTitle"); setText(".library-tools p", "addLibraryBody");
+    setText(".library-tools .section-kicker", "steamAdd"); setText(".library-tools strong", "addLibraryTitle"); setText(".library-tools p", "addLibraryBody"); setText("#libraryGuidance", "libraryGuidance");
     const importButtons = document.querySelectorAll(".library-import-button"); if (importButtons[0]) importButtons[0].textContent = t("importSteam"); if (importButtons[1]) importButtons[1].textContent = t("importFile");
     const notice = document.querySelector("#noticeStrip > span:nth-child(2)"); if (notice) notice.textContent = t("notice"); const dismiss = document.querySelector("#dismissNotice"); if (dismiss) dismiss.setAttribute("aria-label", t("closeInfo"));
     setText("#gridKicker", "strongMatches"); setText("#emptyState h3", "emptyTitle"); setText("#emptyState p", "emptyBody");
+    if (app.view === "library") {
+      setText("#viewEyebrow", "libraryViewKicker");
+      setText("#viewTitle", "libraryViewTitle");
+      setText("#viewSubtitle", "libraryViewSub");
+      setText("#sectionKicker", "libraryViewKicker");
+      setText("#sectionTitle", "libraryViewTitle");
+      setText("#gridKicker", "libraryGridKicker");
+      setText("#gridTitle", "libraryGridTitle");
+    }
     const footer = document.querySelectorAll(".app-footer span"); if (footer[0]) footer[0].textContent = t("footer"); if (footer[1]) footer[1].textContent = t("footerSteam");
     const language = document.querySelector("#languageSelect"); if (language) { language.value = lang(); language.setAttribute("aria-label", lang() === "en" ? "Language selection" : "Dil seçimi"); }
-    const navs = document.querySelectorAll(".main-nav"); if (navs[0]) navs[0].setAttribute("aria-label", lang() === "en" ? "Main navigation" : "Ana gezinme"); if (navs[1]) navs[1].setAttribute("aria-label", lang() === "en" ? "Settings" : "Ayarlar");
+    const navs = document.querySelectorAll(".main-nav"); if (navs[0]) navs[0].setAttribute("aria-label", lang() === "en" ? "Main navigation" : "Ana gezinme"); if (navs[1]) navs[1].setAttribute("aria-label", lang() === "en" ? "Welcome" : "Merhaba"); if (navs[2]) navs[2].setAttribute("aria-label", lang() === "en" ? "Settings" : "Ayarlar");
     const sortLabel = document.querySelector("#sortSelect"); if (sortLabel) sortLabel.setAttribute("aria-label", lang() === "en" ? "Sort order" : "Sıralama");
     const heroSignal = document.querySelector(".hero-signal"); if (heroSignal) heroSignal.setAttribute("aria-label", lang() === "en" ? "Profile summary" : "Profil özeti");
+    const welcomeNav = document.querySelector(".welcome-nav"); if (welcomeNav) welcomeNav.dataset.sectionLabel = lang() === "en" ? "START" : "\u0042\u0041\u015eLANGI\u00c7";
     translateDom(document.body);
     if (guide.active && !guide.rendering) renderGuide();
     if (document.querySelector("#profileDialog")?.open) renderWizard();
@@ -344,7 +368,7 @@
     ["homeHero", "metricsRow", "gameSection", "noticeStrip", "profileView", "updatesView"].forEach((id) => document.getElementById(id)?.classList.add("hidden")); document.querySelector(".content-section")?.classList.add("hidden"); document.getElementById("libraryTools")?.classList.add("hidden");
     document.getElementById("welcomeView")?.classList.remove("hidden"); document.getElementById("viewEyebrow").textContent = ""; document.getElementById("viewTitle").textContent = lang() === "en" ? "Welcome" : "Hoş geldin"; document.getElementById("viewSubtitle").textContent = lang() === "en" ? "Your first discovery is waiting." : "İlk keşfin seni bekliyor."; renderWelcome(); applyLanguage();
   }
-  function enhancedSetView(view) { if (view === "welcome") { setWelcomeView(); return; } document.getElementById("welcomeView")?.classList.add("hidden"); if (original.setView) original.setView(view); applyLanguage(); }
+  function enhancedSetView(view) { if (view === "welcome") { document.querySelectorAll(".nav-item").forEach((item) => item.classList.toggle("active", item.dataset.view === "welcome")); setWelcomeView(); return; } document.getElementById("welcomeView")?.classList.add("hidden"); if (original.setView) original.setView(view); applyLanguage(); }
   function enhancedRenderAll(...args) { if (original.renderAll) original.renderAll(...args); if (app.view === "welcome" || (hasActiveProfile() && !sessionWelcomeShown)) setWelcomeView(); else applyLanguage(); }
 
   function guideTargets() { return guideSteps.filter((step) => document.querySelector(step.selector)); }

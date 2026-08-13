@@ -29,6 +29,7 @@
       backupError: "Profil yede\u011fi i\u015flenemedi.",
       importFolderError: "Profil klasöründe profiles.json, library.json veya geçerli bir ayar bulunamadı.",
       updateVersion: "S\u00fcr\u00fcm",
+      languageTitle: "Uygulama dili",
     },
     en: {
       github: "GitHub repository",
@@ -55,6 +56,7 @@
       backupError: "The profile backup could not be processed.",
       importFolderError: "The profile folder did not contain a valid profiles.json, library.json or settings file.",
       updateVersion: "Version",
+      languageTitle: "App language",
     },
   };
 
@@ -127,13 +129,31 @@
     return `<div class="wizard-section-label">${text("sizeTitle")}</div><div class="font-size-grid wizard-font-size-grid" id="gcWizardFontSize"><button type="button" class="font-size-choice ${current === "small" ? "active" : ""}" data-gc-font-size="small"><span class="font-size-sample font-size-small">Aa</span><span class="font-size-label">${text("small")}</span></button><button type="button" class="font-size-choice ${current === "normal" ? "active" : ""}" data-gc-font-size="normal"><span class="font-size-sample font-size-normal">Aa</span><span class="font-size-label">${text("normal")}</span></button><button type="button" class="font-size-choice ${current === "large" ? "active" : ""}" data-gc-font-size="large"><span class="font-size-sample font-size-large">Aa</span><span class="font-size-label">${text("large")}</span></button></div>`;
   }
 
+  function wizardLanguageMarkup(current) {
+    return `<label class="form-label" for="gcWizardLanguage">${text("languageTitle")}</label><select id="gcWizardLanguage"><option value="tr" ${current === "tr" ? "selected" : ""}>T\u00fcrk\u00e7e</option><option value="en" ${current === "en" ? "selected" : ""}>English</option></select>`;
+  }
+
   function decorateWizard() {
-    const languageSelect = document.getElementById("gcWizardLanguage");
-    if (!languageSelect || document.getElementById("gcWizardFontSize")) return false;
     const draft = window.__gcWizard?.draft;
-    const current = draft?.fontSize || app.settings?.fontSize || "normal";
-    languageSelect.insertAdjacentHTML("beforebegin", wizardFontSizeMarkup(current));
-    return true;
+    const step = window.__gcWizard?.step;
+    if (!draft) return false;
+    let changed = false;
+    const languageSelect = document.getElementById("gcWizardLanguage");
+    if (step === 1 && !languageSelect) {
+      const intro = document.querySelector("#profileForm .wizard-step-copy");
+      if (intro) { intro.insertAdjacentHTML("afterend", wizardLanguageMarkup(draft.language || language())); changed = true; }
+    }
+    if (step === 4 && languageSelect) {
+      const languageLabel = languageSelect.previousElementSibling;
+      if (languageLabel?.matches(".form-label")) languageLabel.remove();
+      languageSelect.remove();
+      changed = true;
+    }
+    if (step === 4 && !document.getElementById("gcWizardFontSize")) {
+      const fontGrid = document.querySelector("#profileForm .wizard-font-grid");
+      if (fontGrid) { fontGrid.insertAdjacentHTML("afterend", wizardFontSizeMarkup(draft.fontSize || app.settings?.fontSize || "normal")); changed = true; }
+    }
+    return changed;
   }
 
   function backupMarkup() {
@@ -214,6 +234,7 @@
     const response = await fetch("/api/backup/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ backup }) });
     const payload = await response.json();
     if (!response.ok || !payload.ok) throw new Error(payload.error || text("backupError"));
+    if (fromWizard) document.querySelector("#profileDialog")?.close();
     applyBundle(payload.bundle);
     if (fromWizard) {
       app.settings.welcomeSeen = false;

@@ -254,7 +254,7 @@ select:focus, textarea:focus, input:focus { border-color: rgba(182, 238, 156, .5
   .sidebar { position: static; width: 100%; min-height: auto; padding: 16px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
   .app-shell { display: block; }
   .brand { padding-bottom: 17px; }
-  .sidebar-label, .sidebar-label-spaced, .sidebar-bottom { display: none; }
+  .sidebar-label, .sidebar-label-spaced, .sidebar-bottom, .sidebar > .welcome-nav::before { display: none; }
   .main-nav { display: flex; overflow-x: auto; gap: 4px; }
   .nav-item { flex: 0 0 auto; width: auto; grid-template-columns: 20px auto; padding: 8px 10px; font-size: 11px; }
   .nav-count { display: none; }
@@ -380,6 +380,9 @@ h2, h3 { font-weight: 700; }
 .card-footer { flex-wrap: wrap; }
 .card-action { font-size: 10px; }
 .profile-switcher { display: flex; align-items: center; gap: 6px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: color-mix(in srgb, var(--panel) 92%, transparent); }
+.profile-switcher::before, .language-switcher::before { display: inline-flex; flex: 0 0 18px; align-items: center; justify-content: center; color: var(--mint); font-size: 14px; line-height: 1; }
+.profile-switcher::before { content: "\2659"; }
+.language-switcher::before { content: "\25CE"; }
 .profile-switcher-label { padding-left: 7px; color: var(--faint); font-size: 8px; letter-spacing: .14em; }
 .profile-switcher select { min-width: 150px; padding: 7px 25px 7px 7px; border: 0; background: transparent; }
 .icon-button { width: 27px; height: 27px; border: 1px solid color-mix(in srgb, var(--mint) 35%, transparent); border-radius: 6px; color: var(--mint); background: color-mix(in srgb, var(--mint) 8%, transparent); font-size: 18px; line-height: 1; }
@@ -595,12 +598,13 @@ body { font-size: calc(13px * var(--type-scale)); }
 /* Living game-world backgrounds. The image stays decorative and the motion remains lightweight. */
 body { position: relative; isolation: isolate; overflow-x: hidden; }
 body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; }
-body::before { z-index: -1; background-position: center; background-repeat: no-repeat; background-size: cover; opacity: .26; filter: saturate(1.08) contrast(1.06); transform: scale(1.045); animation: compass-background-drift 42s ease-in-out infinite alternate; }
-body::after { z-index: 0; background: radial-gradient(circle at 50% 38%, transparent 0, rgba(4, 8, 9, .12) 40%, rgba(4, 8, 9, .62) 100%), linear-gradient(90deg, rgba(5, 10, 10, .54), transparent 28%, transparent 72%, rgba(5, 10, 10, .42)); mix-blend-mode: multiply; }
+body::before { z-index: 0; background-position: center; background-repeat: no-repeat; background-size: cover; opacity: .32; filter: saturate(1.14) contrast(1.08); transform: scale(1.05); will-change: transform, background-position; animation: compass-background-drift 28s ease-in-out infinite alternate; }
+body::after { z-index: 0; background: radial-gradient(circle at 50% 38%, transparent 0, rgba(4, 8, 9, .12) 40%, rgba(4, 8, 9, .62) 100%), linear-gradient(90deg, rgba(5, 10, 10, .54), transparent 28%, transparent 72%, rgba(5, 10, 10, .42)); background-size: 135% 135%, 100% 100%; background-position: 50% 38%, 0 0; mix-blend-mode: multiply; will-change: background-position; animation: compass-ambient-light 24s ease-in-out infinite alternate; }
 html[data-background="tactical"] body::before { background-image: url("/assets/backgrounds/background-tactical.png"); }
 html[data-background="neon"] body::before { background-image: url("/assets/backgrounds/background-neon.png"); }
 html[data-background="management"] body::before { background-image: url("/assets/backgrounds/background-management.png"); }
-@keyframes compass-background-drift { 0% { background-position: 50% 50%; transform: scale(1.045) translate3d(-.4%, -.2%, 0); } 100% { background-position: 53% 48%; transform: scale(1.08) translate3d(.4%, .25%, 0); } }
+@keyframes compass-background-drift { 0% { background-position: 46% 52%; transform: scale(1.05) translate3d(-1.5%, -.7%, 0); } 50% { background-position: 51% 48%; transform: scale(1.085) translate3d(.4%, .2%, 0); } 100% { background-position: 56% 44%; transform: scale(1.12) translate3d(1.5%, .8%, 0); } }
+@keyframes compass-ambient-light { 0% { background-position: 42% 34%, 0 0; opacity: .88; } 100% { background-position: 60% 48%, 0 0; opacity: 1; } }
 .app-shell { position: relative; z-index: 1; }
 .background-kicker { margin-top: 25px; }
 .background-body { max-width: 540px; margin-top: 6px; color: var(--faint); font-size: 10px; line-height: 1.5; }
@@ -614,7 +618,7 @@ html[data-background="management"] body::before { background-image: url("/assets
 .background-choice-overlay strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--display-font); font-size: 10px; }
 .background-choice-overlay small { color: var(--mint); font-size: 9px; letter-spacing: .12em; }
 @media (max-width: 760px) { .background-grid { grid-template-columns: 1fr; } }
-@media (prefers-reduced-motion: reduce) { body::before, .background-choice, .background-choice img { animation: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { body::before, body::after, .background-choice, .background-choice img { animation: none; transition: none; } }
 
 /* The wordmark is a fixed Game Compass banner; it does not inherit the selected app theme or reading font. */
 .brand { gap: 11px; padding-left: 7px; }
@@ -641,3 +645,36 @@ html[data-background="management"] body::before { background-image: url("/assets
 .danger-text { color: var(--red); }
 .danger-text:hover { color: #ffb5a5; }
 @media (prefers-reduced-motion: reduce) { .brand-mark, .brand-mark::after, .brand:hover .brand-mark { animation: none; transition: none; transform: none; } }
+
+/* Keep the welcome destination above discovery as its own stable sidebar section. */
+.sidebar > .brand { order: 0; }
+.sidebar > .welcome-nav { order: 1; margin-top: 0; margin-bottom: 17px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.sidebar > .welcome-nav::before { content: attr(data-section-label); display: block; padding: 0 12px 10px; color: var(--faint); font-size: 10px; letter-spacing: .16em; font-weight: 700; }
+.sidebar > .sidebar-label:not(.sidebar-label-spaced) { order: 2; }
+.sidebar > .explore-nav { order: 3; }
+.sidebar > .sidebar-label-spaced { order: 4; }
+.sidebar > .settings-nav { order: 5; }
+.sidebar > .sidebar-bottom { order: 6; }
+.welcome-nav-item { border: 1px solid color-mix(in srgb, var(--pink) 28%, transparent); color: var(--ink); background: color-mix(in srgb, var(--pink) 7%, transparent); }
+.welcome-nav-item:hover, .welcome-nav-item.active { border-color: color-mix(in srgb, var(--pink) 58%, transparent); background: color-mix(in srgb, var(--pink) 13%, transparent); box-shadow: inset 3px 0 0 var(--pink); }
+
+/* Dialogs live in the browser top layer; validation messages must live there too. */
+.preference-dialog { position: relative; }
+.dialog-toast { position: absolute; z-index: 20; top: 16px; right: 16px; max-width: min(360px, calc(100% - 32px)); padding: 11px 13px; opacity: 0; transform: translateY(-8px); border: 1px solid color-mix(in srgb, var(--mint) 48%, transparent); border-radius: 8px; color: var(--ink); background: color-mix(in srgb, var(--panel-soft) 96%, #071313); box-shadow: 0 15px 35px rgba(0, 0, 0, .42); pointer-events: none; font-size: 12px; line-height: 1.45; transition: opacity .2s ease, transform .2s ease; }
+.dialog-toast.show { opacity: 1; transform: translateY(0); }
+.dialog-toast.error { border-color: color-mix(in srgb, var(--red) 72%, transparent); background: color-mix(in srgb, #512923 92%, var(--panel-soft)); }
+
+.library-tools .library-guidance { max-width: 700px; margin-top: 10px; padding: 9px 11px; border-left: 2px solid var(--orange); border-radius: 5px; color: var(--ink); background: color-mix(in srgb, var(--orange) 8%, transparent); font-size: 11px; line-height: 1.55; }
+.drawer-guidance { margin: 0 0 11px; padding: 9px 11px; border-left: 2px solid var(--mint); border-radius: 5px; color: var(--muted); background: color-mix(in srgb, var(--mint) 7%, transparent); font-size: 11px; line-height: 1.5; }
+
+/* The first catalog sync is a required setup action, so keep it visible and unmistakable. */
+.update-button.needs-initial-update { position: relative; color: #161009; background: linear-gradient(105deg, var(--orange), var(--pink)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 45%, transparent), 0 10px 30px color-mix(in srgb, var(--orange) 24%, transparent); animation: first-update-pulse 2.4s ease-in-out infinite; }
+.update-button.needs-initial-update:hover { background: linear-gradient(105deg, var(--orange), var(--mint)); }
+.update-button.needs-initial-update::after { content: ""; position: absolute; inset: -4px; border: 1px solid color-mix(in srgb, var(--orange) 60%, transparent); border-radius: 11px; pointer-events: none; animation: first-update-ring 2.4s ease-in-out infinite; }
+.first-update-alert { display: grid; grid-template-columns: 30px 1fr; gap: 11px; align-items: start; margin-bottom: 18px; padding: 13px 14px; border: 1px solid color-mix(in srgb, var(--orange) 68%, transparent); border-radius: 9px; background: linear-gradient(105deg, color-mix(in srgb, var(--orange) 13%, var(--panel)), color-mix(in srgb, var(--pink) 8%, var(--panel-deep))); box-shadow: 0 12px 30px color-mix(in srgb, var(--orange) 10%, transparent); }
+.first-update-alert-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: #21170b; background: var(--orange); font-family: var(--display-font); font-size: 17px; font-weight: 900; }
+.first-update-alert strong { display: block; color: var(--orange); font-family: var(--display-font); font-size: 15px; }
+.first-update-alert p { margin-top: 4px; color: var(--ink); font-size: 11px; line-height: 1.5; }
+@keyframes first-update-pulse { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 62%, transparent), 0 13px 38px color-mix(in srgb, var(--orange) 34%, transparent); } }
+@keyframes first-update-ring { 0%, 100% { opacity: .45; transform: scale(1); } 50% { opacity: .95; transform: scale(1.035); } }
+@media (prefers-reduced-motion: reduce) { .update-button.needs-initial-update, .update-button.needs-initial-update::after { animation: none; } }
