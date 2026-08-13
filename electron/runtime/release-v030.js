@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const CURRENT_VERSION = "0.3.0";
+  const CURRENT_VERSION = "1.0.0";
   const REPOSITORY_URL = "https://github.com/bomontius/gamecompass";
   const messages = {
     tr: {
@@ -27,6 +27,7 @@
       backupDone: "Profil yede\u011fi indirildi.",
       restoreDone: "Profil yede\u011fi y\u00fcklendi.",
       backupError: "Profil yede\u011fi i\u015flenemedi.",
+      importFolderError: "Profil klasöründe profiles.json, library.json veya geçerli bir ayar bulunamadı.",
       updateVersion: "S\u00fcr\u00fcm",
     },
     en: {
@@ -52,6 +53,7 @@
       backupDone: "Profile backup downloaded.",
       restoreDone: "Profile backup restored.",
       backupError: "The profile backup could not be processed.",
+      importFolderError: "The profile folder did not contain a valid profiles.json, library.json or settings file.",
       updateVersion: "Version",
     },
   };
@@ -206,17 +208,63 @@
     }
   }
 
-  async function importBackup(file) {
-    try {
-      const backup = JSON.parse(await file.text());
-      if (!backup || !Array.isArray(backup.profiles) || !backup.profiles.length) throw new Error(text("backupError"));
-      if (!window.confirm(text("backupConfirm"))) return;
-      const response = await fetch("/api/backup/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ backup }) });
-      const payload = await response.json();
-      if (!response.ok || !payload.ok) throw new Error(payload.error || text("backupError"));
-      applyBundle(payload.bundle);
+  async function importBackupObject(backup, { fromWizard = false } = {}) {
+    if (!backup || !Array.isArray(backup.profiles) || !backup.profiles.length) throw new Error(text("backupError"));
+    if (!window.confirm(text("backupConfirm"))) return;
+    const response = await fetch("/api/backup/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ backup }) });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) throw new Error(payload.error || text("backupError"));
+    applyBundle(payload.bundle);
+    if (fromWizard) {
+      app.settings.welcomeSeen = false;
+      app.settings.guideCompleted = false;
+      await persistSettings();
+      if (typeof window.__gcWelcomeAfterProfile === "function") window.__gcWelcomeAfterProfile();
+      else setView("welcome");
+    } else {
       setView("profile");
-      toast(text("restoreDone"));
+    }
+    toast(text("restoreDone"));
+  }
+
+  async function importBackup(file, options = {}) {
+    try {
+      const backup = JSON.parse((await file.text()).replace(/^\uFEFF/, ""));
+      await importBackupObject(backup, options);
+    } catch (error) {
+      toast(error.message || text("backupError"), true);
+    }
+  }
+
+  function folderFile(files, name) {
+    return files.find((file) => file.name.toLowerCase() === name || String(file.webkitRelativePath || "").toLowerCase().endsWith("/" + name));
+  }
+
+  async function readJsonFile(file) {
+    return JSON.parse((await file.text()).replace(/^\uFEFF/, ""));
+  }
+
+  async function importBackupFolder(files) {
+    try {
+      const profilesFile = folderFile(files, "profiles.json");
+      const libraryFile = folderFile(files, "library.json");
+      const settingsFile = folderFile(files, "settings.json");
+      if (!profilesFile) throw new Error(text("importFolderError"));
+      const sourceProfiles = await readJsonFile(profilesFile);
+      const profiles = Array.isArray(sourceProfiles) ? sourceProfiles : sourceProfiles?.profiles;
+      if (!Array.isArray(profiles) || !profiles.length) throw new Error(text("importFolderError"));
+      const libraryPayload = libraryFile ? await readJsonFile(libraryFile) : [];
+      const library = Array.isArray(libraryPayload) ? libraryPayload : Array.isArray(libraryPayload?.games) ? libraryPayload.games : [];
+      const settings = settingsFile ? await readJsonFile(settingsFile) : {};
+      const importedProfiles = profiles.map((profile) => {
+        const copy = { ...profile, state: { ...(profile.state || {}) } };
+        if (library.length) {
+          copy.libraryMode = "file";
+          copy.libraryAdditions = [...library, ...(Array.isArray(copy.libraryAdditions) ? copy.libraryAdditions : [])];
+        }
+        return copy;
+      });
+      await importBackupObject({ format: "game-compass-profile-backup", version: 1, activeProfileId: sourceProfiles.activeProfileId, profiles: importedProfiles, settings }, { fromWizard: true });
     } catch (error) {
       toast(error.message || text("backupError"), true);
     }
@@ -326,6 +374,18 @@
         document.getElementById("profileBackupFile")?.click();
         return;
       }
+      if (event.target.closest("[data-gc-wizard-import]")) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        document.getElementById("profileBackupFolder")?.click();
+        return;
+      }
+      if (event.target.closest("[data-gc-wizard-import-json]")) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        document.getElementById("wizardBackupFile")?.click();
+        return;
+      }
       const github = event.target.closest("#githubLink");
       if (github) {
         event.preventDefault();
@@ -344,6 +404,16 @@
       if (event.target?.id === "profileBackupFile") {
         const file = event.target.files?.[0];
         if (file) void importBackup(file);
+        event.target.value = "";
+      }
+      if (event.target?.id === "wizardBackupFile") {
+        const file = event.target.files?.[0];
+        if (file) void importBackup(file, { fromWizard: true });
+        event.target.value = "";
+      }
+      if (event.target?.id === "profileBackupFolder") {
+        const files = [...(event.target.files || [])];
+        if (files.length) void importBackupFolder(files);
         event.target.value = "";
       }
       if (event.target?.id === "gcWizardFontSize") {

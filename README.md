@@ -1,110 +1,97 @@
-# Oyun Pusulası / Game Compass
+# Game Compass 1.0.0
 
-Oyun Pusulası, oyun türlerini ve sistemlerini keşfetmek için yerel çalışan kişisel bir keşif masasıdır. Uygulama temiz bir başlangıçla gelir: kişisel profil, kütüphane veya oynama saati verisi içermez. İlk açılışta kendi profilini oluşturursun.
+Game Compass (Türkçe adı: Oyun Pusulası), sevdiğin oyun sistemlerini keşfetmek, Steam kütüphaneni incelemek ve kişisel bir oyun listesi oluşturmak için Windows üzerinde yerel çalışan bir masaüstü uygulamasıdır.
 
-Game Compass is a local-first game discovery desk for exploring genres, systems, and upcoming releases. It starts clean: no personal profile, library, or playtime data is bundled. On first launch, you create your own profile.
+Game Compass is a local-first Windows desktop app for discovering game systems you enjoy, reviewing an optional Steam library, and building a personal discovery list.
 
 ## Türkçe
 
-### Neler var?
+### Özellikler
 
-- Sevdiğin ve istemediğin oyun türlerini doğal dille tanımlama.
-- İlk açılışta kapatılamayan, beş adımlı profil oluşturma sihirbazı: isim, tercihler, kategori/alt tür, görünüm ve kullanım koşulları.
-- Türkçe/İngilizce dil seçimi, ilk günün önerisi ve arayüzü adım adım tanıtan odak kutulu rehber.
-- Birden fazla profil oluşturma ve profiller arasında geçiş.
-- Koloni yönetimi, şehir kurma, grand strategy, gerçekçi shooter, yönetim ve tycoon gibi sistem odaklı keşif.
-- Ana kategori ve alt türlerde çoklu filtreleme.
-- Steam puanı, oy sayısı, çıkış tarihi, kısa özet ve Steam sayfası bağlantısı.
-- Yakında çıkacaklar, yeni gelenler, kişisel raflar, kaydetme, karşılaştırma ve planlama.
-- İsteğe bağlı Steam Web API veya JSON/CSV/TSV/XML kütüphane aktarımı.
-- Altı tema, üç oyun atmosferi arka planı, altı yazı tipi ve üç yazı boyutu.
-- Düşük kaynak kullanan hareketli/parallax arka plan ve azaltılmış hareket desteği.
+- Beş adımlı, ilk profil oluşturulmadan geçilemeyen profil sihirbazı.
+- Zorunlu profil adı; 10–1000 karakter aralığında “görmek istediklerim” ve “önermeni istemediklerim” alanları.
+- Ana kategori ve alt türlerde çoklu seçim; kategori isimleri iki dilde de İngilizce tutulur.
+- Koloni yönetimi, RimWorld benzeri base building, Manor Lords/Ostriv tarzı şehir kurma, tarihsel grand strategy, gerçekçi shooter, menajerlik, ofis yönetimi ve tycoon odaklı keşif.
+- Beğendim, beğenmedim ve oyun tipi dışlama kararlarını liste sıralamasına anında yansıtma.
+- Her açılışta karşılama ekranı ve profile göre günlük değişen bir öneri.
+- Uygulama sekmelerini renkli odak çerçevesiyle anlatan, adım atlama ve rehberi tamamen atlama seçenekli rehber.
+- Yeni gelenler, yakında çıkacaklar, alt liste, kayıtlılarım, kütüphanem, kişisel raflar, dışlananlar ve güncelleme durumu görünümleri.
+- Kategorilere ayrılmış, açılır-kapanır oyun grupları ve çoklu filtreler.
+- Steam puanı, oy sayısı, çıkış tarihi, kısa özet, künye, Steam mağaza bağlantısı ve isteğe bağlı Steam medya yükleme.
+- Steam Web API, JSON/CSV/TSV/XML dosyası veya tek tek Steam aramasıyla kütüphane ekleme.
+- Oynama saatlerini kütüphanede gösterme; oynama saatlerini öneri zevkinin yerine kullanmama.
+- Kaydetme, kişisel not, karşılaştırma masası, planlama, takip ve kişisel raflar.
+- Birden fazla profil, profiller arası geçiş, profil sıfırlama ve profil silme.
+- Ayarlar ekranından JSON yedeği alma ve geri yükleme.
+- İlk açılış sihirbazından masaüstündeki profil yedeği klasörünü veya JSON yedeğini doğrudan içe aktarma.
+- Türkçe/English dil seçimi, altı tema, altı yazı tipi, küçük/normal/büyük yazı boyutu.
+- Üç oyun atmosferi arka planı, hafif canlı/parallax hareketi ve azaltılmış hareket desteği.
+- GitHub release kontrolü, yeni sürüm bildirimi ve repo bağlantısı.
+- Windows kurulum klasörü seçimi, masaüstü/Başlat menüsü kısayolları ve kaldırma kaydı.
 
-### Kurulum ve kullanım
+### Kurulum
 
-1. Releases bölümünden `Game-Compass-0.3.0-Setup.exe` dosyasını indir.
-2. Kurulum sihirbazında hedef klasörü seç; istersen masaüstü ve Başlat menüsü kısayollarını oluştur.
-3. Uygulamayı aç ve beş adımlı profil sihirbazını tamamla.
-4. Sevdiğin türleri ve önermem gereken oyun tiplerini yaz; kategori ve alt türleri çoklu seç.
-5. Karşılama ekranındaki günün önerisini incele, istersen rehberli turu başlat.
-6. Kütüphaneni istersen sonradan Steam Web API veya dosya aktarımıyla ekle.
+1. [GitHub Releases](https://github.com/bomontius/gamecompass/releases) sayfasından Game-Compass-1.0.0-Setup.exe dosyasını indir.
+2. Kurulumda hedef klasörü seç; istersen masaüstü ve Başlat menüsü kısayollarını oluştur.
+3. Uygulamayı aç. Yeni profil oluştur veya ilk ekrandaki “Profili içe aktar” seçeneğiyle JSON yedeğini ya da profil klasörünü seç.
+4. Profil oluşturursan karşılama ekranı, günün önerisi ve rehber otomatik açılır.
 
-Steam aktarımı şifre istemez. Steam Web API anahtarı ve SteamID64/profil adresi gerekir; Steam'de oyun ayrıntılarının herkese açık olması gerekir. API anahtarı uygulamada saklanmaz. Ayrıntılar için [FAQ](FAQ.md) dosyasına bak.
+### Steam aktarımı
 
-### Kaldırma ve yerel veriler
+Steam şifresi istenmez. Steam Web API anahtarı ve SteamID64/profil adresi gerekir; Steam’de oyun ayrıntılarının herkese açık olması gerekir. API anahtarı kaydedilmez. Steam bağlantısı zorunlu değildir.
 
-Game Compass, Windows Uygulamalar/Programlar ekranından kaldırılabilir. Kaldırma kurulum dosyalarını ve kısayolları siler; profillerin, notların ve yerel kütüphanen `Belgeler\Game Compass\runtime\data` klasöründe korunur. Verileri kaldırmak istersen bu klasörü ayrıca silebilirsin. Uygulama eski sürümlerdeki `%APPDATA%\oyun-pusulasi-gamecompass` klasörünü ilk açılışta yeni konuma taşımayı dener.
+### Yerel veriler ve kaldırma
 
-### Kaynaktan derleme
-
-Gerekenler: Python 3.10+, Node.js ve npm.
-
-```powershell
-cd electron
-npm ci
-npm run dist -- --publish never
-```
-
-Kurulum dosyası `electron/dist/Game-Compass-0.3.0-Setup.exe` altında oluşur.
-
-### Veri ve gizlilik
-
-Uygulama Steam şifresini, çerezlerini veya Steam istemcisi oturumunu okumaz. Kullanıcı verileri Windows'ta `Belgeler\Game Compass\runtime\data` altında tutulur. Steam aktarımı isteğe bağlıdır ve haftalık mağaza güncellemesi oynama saatlerini takip etmez.
+Uygulama verileri Windows’ta Belgeler\Game Compass\runtime\data altında tutulur. Kurulumdan kaldırma uygulama dosyalarını ve kısayolları siler; kullanıcı profilleri ve notlar korunur. Kullanıcı verilerini de kaldırmak istersen bu klasörü ayrıca silebilirsin.
 
 ## English
 
-### What is included?
+### Features
 
-- Natural-language preferences for games you want more or less of.
-- A required five-step first-profile wizard covering identity, preferences, category/subgenre choices, appearance, and terms of use.
-- Turkish/English language selection, a first-session welcome screen with a game of the day, and a guided tour with a moving focus frame.
-- Multiple profiles with independent preferences, decisions, notes, plans, and libraries.
-- System-focused discovery for colony management, city building, grand strategy, realistic shooters, management, and tycoon games.
-- Multi-select filters for broad categories and subgenres.
-- Steam rating, review count, release date, short summary, and a Steam page link.
-- Upcoming releases, new additions, personal shelves, saves, comparisons, and planning.
-- Optional Steam Web API import or local JSON/CSV/TSV/XML library import.
-- Six themes, three game-atmosphere backgrounds, six fonts, and three font sizes.
-- A low-cost animated/parallax background with reduced-motion support.
+- A required five-step profile wizard that cannot be bypassed before the first profile exists.
+- A required profile name and 10–1000 character fields for games to show and game types to avoid.
+- Multi-select main categories and subgenres; category names intentionally stay in English in both languages.
+- Discovery focused on colony management, RimWorld-like base building, Manor Lords/Ostriv-style city building, historical grand strategy, realistic shooters, management, office simulation and tycoon games.
+- Like, dislike and game-type exclusion decisions that update lists immediately.
+- A welcome screen on every app launch with a profile-aware daily recommendation.
+- A guided tour with colored focus frames, step skipping and a full tutorial skip option.
+- New arrivals, upcoming releases, lower lane, saved, library, personal shelves, excluded and update status views.
+- Categorized collapsible game groups and multi-select filters.
+- Steam rating, review count, release date, short summary, dossier, Steam store link and optional Steam media loading.
+- Library import through Steam Web API, JSON/CSV/TSV/XML files, or individual Steam search.
+- Playtime displayed as library information without becoming a recommendation signal.
+- Saving, notes, comparison tray, planning, follows and personal shelves.
+- Multiple profiles, profile switching, reset, and delete.
+- JSON backup and restore from settings.
+- First-launch import from a Desktop profile-backup folder or a JSON backup file.
+- Turkish/English language selection, six themes, six fonts, and small/normal/large font sizes.
+- Three game-atmosphere backgrounds, subtle live/parallax motion, and reduced-motion support.
+- GitHub release checking, update notification and repository link.
+- Selectable Windows install folder, Desktop/Start Menu shortcuts and an uninstall entry.
 
-### Installation and getting started
+### Installation
 
-1. Download `Game-Compass-0.3.0-Setup.exe` from the Releases page.
-2. Choose the installation folder in the setup wizard and optionally create Desktop and Start Menu shortcuts.
-3. Open the app and complete the required five-step profile wizard.
-4. Describe the genres and game types you enjoy or want to avoid, then choose multiple categories and subgenres.
-5. Review the game of the day and start the guided tour if you want an introduction.
-6. Optionally import your library later through Steam Web API or a file.
+1. Download Game-Compass-1.0.0-Setup.exe from the [GitHub Releases](https://github.com/bomontius/gamecompass/releases) page.
+2. Choose the installation folder and optionally create Desktop and Start Menu shortcuts.
+3. Open the app. Create a new profile or choose “Import profile” to select a JSON backup or profile folder.
+4. After profile creation, the welcome screen, game of the day and guided tour open automatically.
 
-Steam import does not ask for your password. It requires a Steam Web API key and a SteamID64/profile URL, and Steam Game Details must be public. The API key is not stored by the app. See [FAQ](FAQ.md) for details.
+### Steam import
 
-### Uninstalling and local data
+The app never asks for your Steam password. Steam import requires a Steam Web API key and a SteamID64/profile URL, with Steam Game Details set to public. The API key is not stored. Steam import is optional.
 
-Game Compass can be removed from Windows Apps/Programs. Uninstalling removes the installed application and shortcuts; profiles, notes, and the local library remain in `Documents\Game Compass\runtime\data`. Delete that folder separately if you also want to remove user data. On first launch, the app attempts to migrate legacy data from `%APPDATA%\oyun-pusulasi-gamecompass` to the new location.
+### Local data and uninstall
 
-### Build from source
+User data is stored at Documents\Game Compass\runtime\data on Windows. Uninstalling removes the installed application and shortcuts while preserving profiles and notes. Delete that data folder separately if you also want to remove user data.
 
-Requirements: Python 3.10+, Node.js, and npm.
+## Project structure
 
-```powershell
-cd electron
-npm ci
-npm run dist -- --publish never
-```
-
-The installer is written to `electron/dist/Game-Compass-0.3.0-Setup.exe`.
-
-### Data and privacy
-
-The app does not read your Steam password, cookies, or Steam client session. User data is stored locally at `Documents\Game Compass\runtime\data` on Windows. Steam import is optional, and the weekly store update does not track playtime changes.
-
-## Project files
-
-- `runtime/` — browser UI, local Python service, catalog seed, background art, and update scripts.
-- `electron/` — Electron host and Windows NSIS installer configuration.
-- [FAQ](FAQ.md) — common setup, data, and privacy questions.
-- [Credits](CREDITS.md) — project and technology acknowledgements.
+- runtime/ — browser UI, local Python service, catalog data, backgrounds and update scripts.
+- electron/ — Electron host and Windows NSIS installer configuration.
+- FAQ.md — setup, profile, Steam, backup and privacy questions.
+- CREDITS.md — project acknowledgements.
+- RELEASE_NOTES.md — complete v1.0.0 feature overview.
 
 ## License
 
-No open-source license has been assigned yet. Until a license is added, all rights are reserved.
+No open-source license has been assigned. Until a license is added, all rights are reserved.

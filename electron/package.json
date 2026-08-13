@@ -1,6 +1,6 @@
 {
   "name": "oyun-pusulasi-desktop",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Game Compass / Oyun Pusulasi local Steam game discovery desk",
   "main": "main.js",
   "author": "Game Compass",

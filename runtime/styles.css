@@ -615,3 +615,29 @@ html[data-background="management"] body::before { background-image: url("/assets
 .background-choice-overlay small { color: var(--mint); font-size: 9px; letter-spacing: .12em; }
 @media (max-width: 760px) { .background-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { body::before, .background-choice, .background-choice img { animation: none; transition: none; } }
+
+/* The wordmark is a fixed Game Compass banner; it does not inherit the selected app theme or reading font. */
+.brand { gap: 11px; padding-left: 7px; }
+.brand-mark { position: relative; width: 40px; height: 40px; flex: 0 0 40px; display: block; overflow: hidden; border: 1px solid rgba(255, 224, 163, .72); border-radius: 50%; background: radial-gradient(circle at 50% 48%, #274f52 0 17%, #102b34 18% 52%, #08171e 53% 100%); box-shadow: 0 0 0 4px rgba(99, 231, 205, .08), 0 0 24px rgba(99, 231, 205, .2); transform: none; animation: brand-compass-float 6s ease-in-out infinite; transition: transform .35s ease, box-shadow .35s ease; }
+.brand-mark::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(255, 224, 163, .42); border-radius: 50%; box-shadow: inset 0 0 0 4px rgba(99, 231, 205, .06); }
+.brand-mark::after { content: ""; position: absolute; left: 16px; top: 6px; width: 8px; height: 27px; clip-path: polygon(50% 0, 100% 100%, 50% 80%, 0 100%); background: linear-gradient(180deg, #ffe0a3 0 48%, #ff7a5f 49% 100%); transform-origin: 50% 50%; animation: brand-compass-needle 7s cubic-bezier(.65, .05, .35, 1) infinite; }
+.brand-mark span { position: absolute; z-index: 1; display: block; width: 3px; height: 7px; border-radius: 2px; background: #63e7cd; transform-origin: 50% 14px; }
+.brand-mark span:nth-child(1) { left: 18px; top: 4px; height: 7px; transform: rotate(0deg); opacity: .95; }
+.brand-mark span:nth-child(2) { left: 7px; top: 15px; height: 5px; transform: rotate(-90deg); opacity: .7; }
+.brand-mark span:nth-child(3) { left: 29px; top: 15px; height: 5px; transform: rotate(90deg); opacity: .7; }
+.brand-lockup { position: relative; min-width: 0; padding: 7px 13px 7px 10px; border: 1px solid rgba(255, 224, 163, .34); border-left-color: rgba(99, 231, 205, .7); background: linear-gradient(110deg, rgba(12, 38, 43, .98), rgba(24, 24, 45, .9)); clip-path: polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%, 3% 50%); box-shadow: 0 8px 24px rgba(0, 0, 0, .18); transition: transform .35s ease, border-color .35s ease; }
+.brand-name { overflow: hidden; color: #ffe0a3; font-family: "Bahnschrift SemiCondensed", "Arial Narrow", "Trebuchet MS", sans-serif; font-size: 14px; font-weight: 900; letter-spacing: .12em; line-height: 1; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; text-shadow: 0 0 14px rgba(255, 224, 163, .28); }
+.brand-caption { margin-top: 4px; overflow: hidden; color: #63e7cd; font-family: "Bahnschrift SemiCondensed", "Arial Narrow", sans-serif; font-size: 8px; font-weight: 700; letter-spacing: .18em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.brand:hover .brand-mark { box-shadow: 0 0 0 6px rgba(99, 231, 205, .11), 0 0 34px rgba(255, 122, 95, .3); transform: scale(1.16) rotate(-8deg); }
+.brand:hover .brand-lockup { border-color: rgba(255, 224, 163, .72); transform: translateX(2px); }
+@keyframes brand-compass-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); } 50% { transform: translate3d(0, -3px, 0) rotate(5deg); } }
+@keyframes brand-compass-needle { 0%, 100% { transform: rotate(-26deg); } 38% { transform: rotate(24deg); } 64% { transform: rotate(7deg); } }
+.wizard-import-box { margin-top: 20px; padding: 13px 14px 14px; border: 1px solid rgba(99, 231, 205, .25); border-radius: 9px; background: linear-gradient(135deg, rgba(99, 231, 205, .07), rgba(255, 224, 163, .04)); }
+.wizard-import-box p { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.wizard-import-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
+.wizard-import-actions .library-import-button { flex: 1 1 170px; }
+.wizard-limit { float: right; color: var(--faint); font-size: 9px; font-weight: 400; letter-spacing: .02em; }
+.delete-profile-button { margin-left: 2px; }
+.danger-text { color: var(--red); }
+.danger-text:hover { color: #ffb5a5; }
+@media (prefers-reduced-motion: reduce) { .brand-mark, .brand-mark::after, .brand:hover .brand-mark { animation: none; transition: none; transform: none; } }

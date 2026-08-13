@@ -312,13 +312,33 @@ class AppHandler(BaseHTTPRequestHandler):
             return
         if path == "/api/profile/create":
             profiles = load_profiles(self.root)
-            name = str(payload.get("name", "Yeni profil")).strip() or "Yeni profil"
+            name = str(payload.get("name", "")).strip()
+            preferences_text = str(payload.get("preferencesText", "")).strip()
+            blocks_text = str(payload.get("blocksText", "")).strip()
+            if not name:
+                self.send_json({"ok": False, "error": "Profil adı zorunlu."}, 400)
+                return
+            if len(preferences_text) < 10:
+                self.send_json({"ok": False, "error": "Görmek istediklerin alanına en az 10 karakter yazmalısın."}, 400)
+                return
+            if len(blocks_text) < 10:
+                self.send_json({"ok": False, "error": "Önermememi istediklerin alanına en az 10 karakter yazmalısın."}, 400)
+                return
+            if len(preferences_text) > 1000 or len(blocks_text) > 1000:
+                self.send_json({"ok": False, "error": "Tercih alanları en fazla 1000 karakter olabilir."}, 400)
+                return
             if not bool(payload.get("termsAccepted", False)):
                 self.send_json({"ok": False, "error": "Kullanım koşullarını kabul etmeden profil oluşturulamaz."}, 400)
                 return
             profile_id = f"profile-{int(dt.datetime.now().timestamp() * 1000)}"
             preferred_categories = [str(item).strip() for item in payload.get("preferredCategories", []) if str(item).strip()][:40]
             preferred_subgenres = [str(item).strip() for item in payload.get("preferredSubgenres", []) if str(item).strip()][:80]
+            if not preferred_categories:
+                self.send_json({"ok": False, "error": "En az bir ana kategori seçmelisin."}, 400)
+                return
+            if not preferred_subgenres:
+                self.send_json({"ok": False, "error": "En az bir alt tür seçmelisin."}, 400)
+                return
             positive_tags = list(dict.fromkeys([
                 *[str(item).strip() for item in payload.get("positiveTags", []) if str(item).strip()],
                 *preferred_categories,
@@ -358,6 +378,19 @@ class AppHandler(BaseHTTPRequestHandler):
             profiles["activeProfileId"] = profile_id
             save_profiles(self.root, profiles)
             self.send_json({"ok": True, "bundle": self.response_bundle()})
+            return
+        if path == "/api/profile/delete":
+            profiles = load_profiles(self.root)
+            profile_id = str(payload.get("profileId") or profiles.get("activeProfileId") or "")
+            target = next((item for item in profiles["profiles"] if item.get("id") == profile_id), None)
+            if target is None:
+                self.send_json({"ok": False, "error": "Silinecek profil bulunamadı."}, 404)
+                return
+            profiles["profiles"] = [item for item in profiles["profiles"] if item.get("id") != profile_id]
+            if profiles.get("activeProfileId") == profile_id:
+                profiles["activeProfileId"] = profiles["profiles"][0].get("id") if profiles["profiles"] else None
+            save_profiles(self.root, profiles)
+            self.send_json({"ok": True, "deletedProfileId": profile_id, "bundle": self.response_bundle()})
             return
         if path == "/api/profile/reset":
             profiles = load_profiles(self.root)

@@ -2,100 +2,108 @@
 
 ## Türkçe
 
-### Uygulama neden boş açılıyor?
+### Uygulama neden ilk açılışta profil istiyor?
 
-Bu bilinçli bir tasarım kararıdır. Paket kişisel profil, kütüphane ve oynama saati içermez. İlk açılışta kapatılamayan beş adımlı profil sihirbazı açılır; isim, serbest metin tercihleri, kategori/alt tür seçimleri, tema ve kullanım koşulları tamamlanınca uygulamaya geçilir.
+Game Compass kişisel veriler ve hazır profil olmadan başlar. İlk profil oluşturulana kadar beş adımlı sihirbaz kapatılamaz. Profil adı, iki metin alanı, en az bir kategori, en az bir alt tür ve kullanım koşulu onayı gerekir.
 
-### Uygulama nereye kurulur?
+### Yedek profilimi ilk ekrandan nasıl yüklerim?
 
-Kurulum sihirbazında hedef klasörü kendin seçebilirsin. İstersen masaüstü ve Başlat menüsü kısayolları da oluşturulur. Uygulama dosyaları ile kişisel veriler birbirinden ayrıdır.
+İlk profil sihirbazının ilk adımındaki Profili içe aktar bölümünü kullan. JSON yedeğini seçebilir veya Masaüstündeki profil klasörünü seçebilirsin. Klasör içe aktarmada profiles.json, library.json ve settings.json okunur. Game Compass - Çağrı Profil Yedeği gibi bir klasörü seçmen yeterlidir.
 
-### Uygulamayı nasıl kaldırırım?
+### Profilimi silebilir miyim?
 
-Windows Ayarlar > Uygulamalar veya Denetim Masası > Programlar bölümünden **Game Compass** uygulamasını kaldırabilirsin. Bu işlem uygulamayı ve kısayolları kaldırır; kullanıcı verilerin `Belgeler\Game Compass\runtime\data` altında kalır.
+Profil ve temalar sekmesinde Profili sil düğmesine bas. Onaydan sonra aktif profil, ona ait tercihler, notlar ve kararlar silinir. Başka profil varsa ilki aktif olur; yoksa uygulama yeni profil sihirbazına döner.
 
-### Uygulama dilini değiştirebilir miyim?
+### Uygulama her açılışta ne gösterir?
 
-Evet. Üst çubuktaki dil seçicisinden Türkçe veya English seçebilirsin. Dil tercihi yerel olarak saklanır.
+Aktif profil varsa önce Hoş geldin ekranı görünür. Günün önerisi yerel tarihe ve profile göre her gün değişir. Keşfe geç düğmesiyle ana listeye gidebilirsin.
 
 ### Rehber nasıl çalışır?
 
-Karşılama ekranındaki **Rehberli turu başlat** veya üst çubuktaki **Rehber** düğmesine bas. Her adımda ilgili sekme ya da düğme renkli bir odak çerçevesiyle gösterilir. **Bu adımı atla** yalnızca mevcut adımı geçer; **Rehberi atla** tüm turu kapatır.
+Hoş geldin ekranındaki Rehberli turu başlat veya üst çubuktaki Rehber düğmesine bas. Rehber, ilgili sekmeye geçer ve hedefi renkli bir odak çerçevesiyle gösterir. Bu adımı atla yalnızca mevcut adımı geçer; Rehberi atla tüm turu kapatır. İlk profil tamamlanınca rehber otomatik açılır ve bitince Hoş geldin ekranına döner.
 
 ### Steam hesabımı bağlamak zorunda mıyım?
 
-Hayır. Kütüphaneni boş bırakabilir, oyunları tek tek arayarak ekleyebilir veya JSON, CSV, TSV ya da XML dosyası aktarabilirsin.
+Hayır. Kütüphaneyi boş bırakabilir, oyunları Steam aramasıyla tek tek ekleyebilir, dosyadan içe aktarabilir veya Steam Web API kullanabilirsin.
 
 ### Steam aktarımı için ne gerekir?
 
-Steam Web API anahtarı ve SteamID64 ya da profil URL'si gerekir. Steam profilinde **Oyun ayrıntıları** görünürlüğü herkese açık olmalıdır. Uygulama Steam şifreni istemez ve API anahtarını kaydetmez.
+Steam Web API anahtarı ve SteamID64 ya da profil URL’si gerekir. Steam profilinde Oyun ayrıntıları görünürlüğü herkese açık olmalıdır. Uygulama Steam şifreni istemez ve API anahtarını kaydetmez.
 
 ### Oynama saatlerim önerileri belirler mi?
 
-Hayır. Oynama saatleri yalnızca sen Steam aktarımı yaptığında kütüphanede bilgi olarak görünür. Öneri profili, yazdığın sevdiğim/istemediğim tercihler ve uygulama içindeki beğen/beğenme kararlarıyla şekillenir.
+Hayır. Oynama saatleri yalnızca Steam’den aktarılan kütüphane bilgisi olarak gösterilir. Öneriler yazdığın tercihler, kategori/alt tür seçimleri ve uygulama içindeki beğenme kararlarıyla şekillenir.
 
 ### Haftalık güncelleme ne yapar?
 
-Steam'in herkese açık mağaza künyelerini, yeni çıkışları ve yaklaşan oyunları yeniler. Kişisel profili veya oynama saatlerini kendiliğinden değiştirmez. Windows Görev Zamanlayıcı kaydı ayrıca kurulmalıdır.
+Steam’in herkese açık mağaza künyelerini, yeni çıkışları ve yaklaşan oyunları yeniler. Oynama saatlerini takip etmez ve profili kendiliğinden değiştirmez. Bilgisayar kapalıysa görev sonraki uygun açılışta çalışır.
 
-### Arka planlar hareket ediyor; bunu kapatabilir miyim?
+### Arka planı ve hareketi değiştirebilir miyim?
 
-Tema ayarlarından üç arka plan arasından seçim yapabilirsin. Sisteminde azaltılmış hareket seçeneği açıksa animasyon otomatik olarak durur; ayrıca uygulama düşük kaynaklı bir efekt kullandığı için kapatıldığında da işlev kaybı olmaz.
+Evet. Profil ve temalar sekmesinde üç oyun atmosferi arasından seçim yapabilirsin. Arka planlarda hafif canlı hareket vardır. Windows azaltılmış hareket ayarı açıksa animasyon otomatik olarak durur.
 
 ### Verilerim nereye kaydedilir?
 
-Windows'ta veriler `Belgeler\Game Compass\runtime\data` klasörüne kaydedilir. Uygulama yerel çalışır; profil ve karar verileri uzaktaki bir sunucuya gönderilmez. Eski sürüm verileri varsa ilk açılışta `%APPDATA%\oyun-pusulasi-gamecompass` klasöründen yeni konuma taşınmayı dener.
+Windows’ta profil, not, raf ve kütüphane verileri Belgeler\Game Compass\runtime\data klasörüne kaydedilir. Uygulama yerel çalışır; bu veriler uzaktaki bir uygulama sunucusuna gönderilmez.
 
 ### Yedek alabilir miyim?
 
-Evet. Ayarlar ve tercihler bölümündeki yerel profil yedekleme düğmesi JSON yedeği oluşturur. Aynı bölümdeki yükleme düğmesi daha önce alınmış yedeği geri getirir. Steam API anahtarları yedeğe dahil edilmez.
+Evet. Profil ve temalar sekmesindeki yerel profil yedeği bölümü JSON yedeği indirir ve daha sonra geri yükler. Steam API anahtarları yedeğe dahil edilmez. İlk açılış sihirbazı da aynı JSON biçimini kabul eder.
+
+### Uygulama nasıl kaldırılır?
+
+Windows Ayarlar > Uygulamalar veya Denetim Masası > Programlar bölümünden Game Compass’ı kaldır. Kaldırma uygulama dosyalarını ve kısayolları siler; kullanıcı verileri korunur. Verileri de kaldırmak istersen Belgeler\Game Compass klasörünü ayrıca silebilirsin.
 
 ## English
 
-### Why does the app start empty?
+### Why does the app ask for a profile on first launch?
 
-This is intentional. The release contains no personal profile, library, or playtime data. On first launch, a required five-step profile wizard asks for your name, preferences, category/subgenre choices, appearance, and terms-of-use confirmation before entering the app.
+Game Compass starts without personal data or a ready-made profile. The five-step wizard cannot be closed until the first profile exists. It requires a profile name, two text fields, at least one category, at least one subgenre, and terms-of-use confirmation.
 
-### Where is the app installed?
+### How do I import my backed-up profile from the first screen?
 
-The setup wizard lets you choose the installation folder. It can also create Desktop and Start Menu shortcuts. Application files and personal data are kept separate.
+Use the Import profile section on step one of the first-profile wizard. Choose a JSON backup or select the profile folder on your Desktop. Folder import reads profiles.json, library.json and settings.json. Selecting a folder such as Game Compass - Çağrı Profil Yedeği is enough.
 
-### How do I uninstall the app?
+### Can I delete a profile?
 
-Open Windows Settings > Apps or Control Panel > Programs and remove **Game Compass**. This removes the installed application and shortcuts; user data remains in `Documents\Game Compass\runtime\data`.
+Open Profile & themes and choose Delete profile. After confirmation, the active profile and its preferences, notes and decisions are removed. If another profile exists it becomes active; otherwise the app returns to the new-profile wizard.
 
-### Can I change the app language?
+### What appears every time the app opens?
 
-Yes. Use the language selector in the top bar to switch between Türkçe and English. The choice is stored locally.
+With an active profile, the Welcome screen appears first. The game of the day changes daily using the local date and active profile. Choose Enter discovery to open the main list.
 
 ### How does the guide work?
 
-Choose **Start guided tour** on the welcome screen or use the **Guide** button in the top bar. Each step places a colored focus frame around the relevant tab or control. **Skip this step** advances one step; **Skip tutorial** closes the entire tour.
+Choose Start guided tour on the Welcome screen or use Guide in the top bar. The guide moves to the relevant section and places a colored focus frame around the target. Skip this step advances one step; Skip tutorial closes the tour. After the first profile is created, the guide opens automatically and returns to Welcome when it ends.
 
 ### Do I have to connect Steam?
 
-No. You can keep the library empty, add games by searching for them, or import a JSON, CSV, TSV, or XML file.
+No. Keep the library empty, add games through Steam search, import a file, or use the Steam Web API.
 
 ### What is required for Steam import?
 
-You need a Steam Web API key and either a SteamID64 or profile URL. Steam **Game Details** visibility must be public. The app never asks for your Steam password and does not store the API key.
+You need a Steam Web API key and either a SteamID64 or profile URL. Steam Game Details must be public. The app never asks for your Steam password and does not store the API key.
 
 ### Does playtime control recommendations?
 
-No. Playtime is displayed as library information only when you import it. Recommendations are based on your written preferences and the like/dislike decisions you make in the app.
+No. Playtime is displayed as library information only. Recommendations use written preferences, category/subgenre choices, and the like/dislike decisions made in the app.
 
 ### What does the weekly update do?
 
-It refreshes public Steam store metadata, new releases, and upcoming games. It does not silently change your profile or track playtime changes. The Windows Task Scheduler entry must be installed separately.
+It refreshes public Steam store dossiers, new releases, and upcoming games. It does not track playtime or silently change your profile. If the computer is off, the task runs at the next suitable launch.
 
-### Can I choose or disable the animated background?
+### Can I change the background and motion?
 
-Yes. Choose one of the three backgrounds in appearance settings. If Windows reduced motion is enabled, the animation stops automatically; the effect is intentionally lightweight.
+Yes. Choose among three game-atmosphere backgrounds in Profile & themes. The backgrounds use subtle motion; Windows reduced-motion settings automatically disable the animation.
 
 ### Where is my data stored?
 
-On Windows, data is stored locally at `Documents\Game Compass\runtime\data`. Profile and decision data are not sent to a remote application server. If legacy data exists, the app attempts to migrate it from `%APPDATA%\oyun-pusulasi-gamecompass` on first launch.
+Profiles, notes, shelves and library data are stored locally at Documents\Game Compass\runtime\data on Windows. They are not sent to a remote application server.
 
 ### Can I back up and restore profiles?
 
-Yes. The local profile backup button in settings creates a JSON backup. The restore button imports a previous backup. Steam API keys are excluded from backups.
+Yes. The local profile backup section in Profile & themes downloads a JSON backup and restores it later. Steam API keys are excluded. The first-launch wizard accepts the same JSON format.
+
+### How do I uninstall the app?
+
+Remove Game Compass from Windows Settings > Apps or Control Panel > Programs. Uninstalling removes the installed app and shortcuts while preserving user data. Delete the Documents\Game Compass folder separately if you also want to remove the data.
